@@ -1,0 +1,187 @@
+{
+  "Meta": {
+    "role": "Senior Fullstack Developer",
+    "description": "Fullstack developer focused on the frontend. 10+ years shipping products — from design systems to realtime services.",
+    "keywords": "fullstack, react, next.js, typescript, node.js, portfolio",
+    "aboutTitle": "About",
+    "aboutDescription": "Who I am, what I do, and the technologies I work with.",
+    "techStackTitle": "Tech Stack",
+    "techStackDescription": "Technologies and tools I use: frontend, backend, DevOps.",
+    "projectsTitle": "Projects",
+    "projectsDescription": "Case studies and projects: from idea to production.",
+    "contactTitle": "Contact",
+    "contactDescription": "Get in touch: email and social links.",
+    "projectNotFound": "Project not found"
+  },
+  "Site": {
+    "role": "Senior Fullstack Developer",
+    "tagline": "Building fast products with React, Next.js and Node.js",
+    "shortBio": "Fullstack developer focused on the frontend. 10+ years shipping products — from design systems to realtime services.",
+    "location": "Remote / Russia",
+    "bio": [
+      "For over 10 years I've designed and built web products. My core expertise is frontend with React and Next.js, but I'm equally confident on the backend: API design, databases, infrastructure.",
+      "I love clean architecture, strict typing, and attention to UI detail: animation, accessibility, performance. I believe good UI is when the complex feels simple.",
+      "In my spare time I explore animation libraries, tinker with design tokens, and write about frontend."
+    ]
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "techStack": "Stack",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "Header": {
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme"
+  },
+  "Footer": {
+    "sections": "Sections",
+    "contacts": "Contacts",
+    "footerNav": "Footer navigation",
+    "copyright": "© {year} {name}. All rights reserved.",
+    "builtWith": "Built with Next.js, Tailwind CSS and Motion."
+  },
+  "Hero": {
+    "ctaProjects": "View projects",
+    "ctaContact": "Get in touch"
+  },
+  "Home": {
+    "skillsEyebrow": "Stack",
+    "skillsTitle": "Technologies I work with",
+    "skillsAll": "Full stack →",
+    "projectsEyebrow": "Work",
+    "projectsTitle": "Featured projects",
+    "projectsDescription": "A few case studies I'm proud of. The full list is on the projects page.",
+    "projectsAll": "All projects →",
+    "ctaTitle": "Let's talk about your project?",
+    "ctaDescription": "Open to interesting challenges, consulting, and long-term collaboration.",
+    "ctaContact": "Get in touch"
+  },
+  "About": {
+    "factExperience": "Experience",
+    "factLocation": "Location",
+    "factRole": "Role",
+    "factEmail": "Email",
+    "experienceValue": "10+ years",
+    "heading": "A bit about me",
+    "ctaProjects": "My projects",
+    "ctaContact": "Get in touch"
+  },
+  "TechStack": {
+    "eyebrow": "Technologies",
+    "title": "Technology stack",
+    "description": "The tools I use in my work — from frontend to infrastructure."
+  },
+  "Common": {
+    "close": "Close",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "Skills": {
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Tools & DevOps",
+    "docs": "Open documentation",
+    "usage": "Used by",
+    "description": {
+      "react": "A library for declarative component-based UI — the foundation of most modern SPAs and the base of the whole frontend stack.",
+      "nextjs": "A React framework with SSR/SSG, file-based routing and server components — for fast, SEO-friendly production apps.",
+      "typescript": "A typed layer over JavaScript: catches errors before runtime, powers autocomplete and makes refactoring safe.",
+      "javascript": "The language of the web — runs in the browser and on the server. The base the entire frontend toolchain stands on.",
+      "redux": "Predictable state management for complex client state with minimal boilerplate and great dev tooling.",
+      "tailwind": "A utility-first CSS framework — build UI right in the markup, no file-switching and no dead CSS.",
+      "motion": "An animation library for React: declarative transitions, gestures and layout animations that respect prefers-reduced-motion.",
+      "gsap": "A professional animation engine for complex timelines, scroll effects and frame-precise control.",
+      "nodejs": "A server-side JavaScript runtime — APIs, build tools and realtime services in the same language as the frontend.",
+      "express": "A minimal web framework for Node.js — the fast way to stand up a REST API with flexible middleware.",
+      "postgresql": "A powerful relational database with rich SQL, transactions and production-proven reliability.",
+      "prisma": "A type-safe ORM for Node.js: a declarative schema, migrations and an auto-generated typed client.",
+      "mongodb": "A document NoSQL database for flexible schemas and fast prototyping while the data shape is still evolving.",
+      "git": "Version control — change history, branches and collaboration on code without the chaos.",
+      "docker": "Containerization — a reproducible environment from local dev to production; “works on my machine” becomes “works everywhere”.",
+      "vite": "A lightning-fast bundler and dev server on native ES modules: instant HMR and quick builds.",
+      "figma": "An interface design and prototyping tool — the bridge between design and code where the design system lives."
+    }
+  },
+  "ProjectsPage": {
+    "eyebrow": "Work",
+    "title": "Projects",
+    "description": "Case studies I've worked on: from idea to production."
+  },
+  "ProjectDetail": {
+    "allProjects": "All projects",
+    "openProject": "Open project",
+    "sourceCode": "Source code",
+    "stack": "Stack",
+    "gallery": "Gallery"
+  },
+  "ProjectGallery": {
+    "openScreenshot": "Open screenshot {index}",
+    "close": "Close",
+    "prev": "Previous",
+    "next": "Next",
+    "screenshotAlt": "{title} — screenshot {index}",
+    "galleryAria": "{title} — gallery"
+  },
+  "Contact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "description": "Open to interesting challenges and collaboration. Reach out by email or social media — I reply fast.",
+    "writeTo": "Email {email}"
+  },
+  "Socials": {
+    "github": "GitHub",
+    "telegram": "Telegram",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "Looks like this page doesn't exist or was moved. Check the URL or head back home.",
+    "home": "Back home"
+  },
+  "Projects": {
+    "where-is-pizza": {
+      "role": "Fullstack",
+      "summary": "Realtime pizza delivery tracking: live courier map, order status over WebSocket.",
+      "description": [
+        "A realtime delivery tracking service. Users watch the courier move on a map and see order statuses change without reloading the page.",
+        "A Next.js App Router client with server components for the initial load and a WebSocket channel for live updates. Order state lives in Zustand, server data in TanStack Query.",
+        "Special focus on optimistic updates and connection recovery: when the socket drops, the client re-fetches missed events and merges them into the store."
+      ]
+    },
+    "stream-service": {
+      "role": "Frontend Lead",
+      "summary": "Streaming platform: catalog, player, subscriptions. Heavy client-side load.",
+      "description": [
+        "The frontend of a streaming service: content catalog, HLS player, subscription and profile sections. Focused on list performance and smooth navigation.",
+        "React + Redux Toolkit / RTK Query as the server-state source, long-list virtualization, route-based code-splitting, prefetching of adjacent screens.",
+        "The design system is extracted into a separate package and reused across web and mobile apps."
+      ]
+    },
+    "design-system": {
+      "role": "Frontend",
+      "summary": "A UI kit and design tokens for several products. Storybook, automated package publishing.",
+      "description": [
+        "A monorepo with a UI kit: a set of typed components, theme tokens, icons. Powers several products from a single source.",
+        "Storybook as a showcase and visual testing ground, Changesets for versioning and automated package publishing to npm.",
+        "Strict typing of the components' public API and contract tests so updates don't break consumer products."
+      ]
+    },
+    "task-flow": {
+      "role": "Fullstack",
+      "summary": "Kanban boards with drag-n-drop, realtime collaboration, and offline mode.",
+      "description": [
+        "A task management tool: boards, columns, cards with drag-n-drop, realtime collaborative editing.",
+        "Next.js + dnd-kit for dragging, Prisma over PostgreSQL, server actions for mutations, and an optimistic UI.",
+        "Offline mode on IndexedDB with later synchronization and conflict resolution when the network is restored."
+      ]
+    }
+  }
+}
