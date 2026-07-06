@@ -1,12 +1,12 @@
 {
   "Meta": {
-    "role": "Senior Fullstack Developer",
-    "description": "Fullstack developer focused on the frontend. 10+ years shipping products — from design systems to realtime services.",
-    "keywords": "fullstack, react, next.js, typescript, node.js, portfolio",
+    "role": "Frontend Developer",
+    "description": "Frontend developer with 3+ years of experience building modern web products — from design systems to complex SPAs.",
+    "keywords": "frontend, react, next.js, typescript, portfolio",
     "aboutTitle": "About",
     "aboutDescription": "Who I am, what I do, and the technologies I work with.",
     "techStackTitle": "Tech Stack",
-    "techStackDescription": "Technologies and tools I use: frontend, backend, DevOps.",
+    "techStackDescription": "Frontend technologies and tools I work with daily.",
     "projectsTitle": "Projects",
     "projectsDescription": "Case studies and projects: from idea to production.",
     "contactTitle": "Contact",
@@ -14,14 +14,16 @@
     "projectNotFound": "Project not found"
   },
   "Site": {
-    "role": "Senior Fullstack Developer",
-    "tagline": "Building fast products with React, Next.js and Node.js",
-    "shortBio": "Fullstack developer focused on the frontend. 10+ years shipping products — from design systems to realtime services.",
+    "role": "Frontend Developer",
+    "tagline": "Building fast products with React, Next.js and TypeScript",
+    "shortBio": "Frontend developer with 3+ years of experience building products — from design systems to complex SPAs.",
     "location": "Remote / Russia",
     "bio": [
-      "For over 10 years I've designed and built web products. My core expertise is frontend with React and Next.js, but I'm equally confident on the backend: API design, databases, infrastructure.",
-      "I love clean architecture, strict typing, and attention to UI detail: animation, accessibility, performance. I believe good UI is when the complex feels simple.",
-      "In my spare time I explore animation libraries, tinker with design tokens, and write about frontend."
+      "For 3+ years I've been designing and building web products. My core expertise is React and Next.js, plus a healthy obsession with clean architecture, strict typing, and pixel-perfect UI.",
+      "I've spent an embarrassing amount of time nudging a box-shadow half a pixel to the left, and I regret nothing. If a button doesn't feel right on click, I will find out why — usually at 1am, alone, with devtools open.",
+      "Accessibility and performance matter to me as much as looks: a beautiful interface that breaks for a screen reader or chokes on a slow connection isn't finished, it's just a pretty screenshot. Good UI is when something complicated feels effortless.",
+      "I've shipped a realtime pizza-delivery tracker, argued with WebSockets that dropped mid-delivery, and built a video platform that had to survive real traffic — not the 'works on my localhost' kind. TypeScript has saved me from myself more times than I'd like to admit.",
+      "Off the clock I read changelogs the way other people read novels, hoard animation libraries I'll 'definitely use someday', and occasionally explain to non-developers why a website is not, in fact, 'just HTML'."
     ]
   },
   "Nav": {
@@ -54,7 +56,7 @@
   "Home": {
     "skillsEyebrow": "Stack",
     "skillsTitle": "Technologies I work with",
-    "skillsAll": "Full stack →",
+    "skillsAll": "All skills →",
     "projectsEyebrow": "Work",
     "projectsTitle": "Featured projects",
     "projectsDescription": "A few case studies I'm proud of. The full list is on the projects page.",
@@ -68,7 +70,8 @@
     "factLocation": "Location",
     "factRole": "Role",
     "factEmail": "Email",
-    "experienceValue": "10+ years",
+    "experienceValue": "3+ years",
+    "eyebrow": "Who I am",
     "heading": "A bit about me",
     "ctaProjects": "My projects",
     "ctaContact": "Get in touch"
@@ -76,7 +79,7 @@
   "TechStack": {
     "eyebrow": "Technologies",
     "title": "Technology stack",
-    "description": "The tools I use in my work — from frontend to infrastructure."
+    "description": "The frontend tools I use in my work — from frameworks to dev tooling."
   },
   "Common": {
     "close": "Close",
@@ -85,28 +88,42 @@
   },
   "Skills": {
     "frontend": "Frontend",
-    "backend": "Backend",
-    "tools": "Tools & DevOps",
+    "tools": "Tools",
+    "ai": "AI",
     "docs": "Open documentation",
     "usage": "Used by",
     "description": {
-      "react": "A library for declarative component-based UI — the foundation of most modern SPAs and the base of the whole frontend stack.",
-      "nextjs": "A React framework with SSR/SSG, file-based routing and server components — for fast, SEO-friendly production apps.",
       "typescript": "A typed layer over JavaScript: catches errors before runtime, powers autocomplete and makes refactoring safe.",
+      "html5": "The standard markup language for the web — semantic structure, accessibility, and native browser APIs.",
+      "css3": "Stylesheets for the web: from layout (flexbox, grid) to animations and responsive design.",
+      "react": "A library for declarative component-based UI — the foundation of most modern SPAs and the base of the frontend stack.",
+      "nextjs": "A React framework with SSR/SSG, file-based routing and server components — for fast, SEO-friendly production apps.",
       "javascript": "The language of the web — runs in the browser and on the server. The base the entire frontend toolchain stands on.",
-      "redux": "Predictable state management for complex client state with minimal boilerplate and great dev tooling.",
+      "scss": "A CSS preprocessor with variables, nesting, mixins and functions — keeps stylesheets maintainable at scale.",
       "tailwind": "A utility-first CSS framework — build UI right in the markup, no file-switching and no dead CSS.",
+      "redux": "Predictable state management for complex client state with minimal boilerplate and great dev tooling.",
+      "redux-toolkit": "The official, opinionated Redux toolset: simplified store setup, RTK Query, and reduced boilerplate.",
+      "mobx": "Reactive state management with observable values and automatic derivation tracking — minimal boilerplate.",
+      "react-hook-form": "Performant form library for React with uncontrolled inputs and schema-based validation.",
+      "zod": "A TypeScript-first schema validation library with precise type inference.",
+      "tanstack-query": "Async state management for server data: caching, deduplication, background refetching and pagination.",
+      "apollo": "A comprehensive state management library for GraphQL: queries, mutations, and a normalized cache.",
+      "graphql": "A query language for APIs — fetch exactly the data you need in a single request.",
+      "material-ui": "A comprehensive React component library implementing Material Design — pre-built UI blocks and theming.",
+      "shadcn": "A collection of beautifully designed, accessible React components built on Radix UI and Tailwind.",
+      "radix": "A headless UI component library — unstyled, accessible primitives for building custom design systems.",
       "motion": "An animation library for React: declarative transitions, gestures and layout animations that respect prefers-reduced-motion.",
-      "gsap": "A professional animation engine for complex timelines, scroll effects and frame-precise control.",
-      "nodejs": "A server-side JavaScript runtime — APIs, build tools and realtime services in the same language as the frontend.",
-      "express": "A minimal web framework for Node.js — the fast way to stand up a REST API with flexible middleware.",
-      "postgresql": "A powerful relational database with rich SQL, transactions and production-proven reliability.",
-      "prisma": "A type-safe ORM for Node.js: a declarative schema, migrations and an auto-generated typed client.",
-      "mongodb": "A document NoSQL database for flexible schemas and fast prototyping while the data shape is still evolving.",
+      "tanstack-virtual": "A headless virtualizer for rendering large lists efficiently — only the visible rows are in the DOM.",
+      "react-router": "The standard routing library for React: nested routes, loaders, actions and client-side navigation.",
       "git": "Version control — change history, branches and collaboration on code without the chaos.",
-      "docker": "Containerization — a reproducible environment from local dev to production; “works on my machine” becomes “works everywhere”.",
-      "vite": "A lightning-fast bundler and dev server on native ES modules: instant HMR and quick builds.",
-      "figma": "An interface design and prototyping tool — the bridge between design and code where the design system lives."
+      "prettier": "An opinionated code formatter — consistent style across the codebase, no more style discussions.",
+      "eslint": "A static analysis tool for finding and fixing problems in JavaScript and TypeScript code.",
+      "figma": "A collaborative design tool for UI/UX — vector editing, prototyping, and design systems in the browser.",
+      "capacitor": "A cross-platform native runtime for building mobile apps from web code — iOS, Android, and the web from one codebase.",
+      "react-native": "A framework for building native mobile apps using React — share business logic across platforms with native UI.",
+      "claude": "An AI assistant by Anthropic — helpful, honest, and harmless. Great for code review, reasoning, and technical writing.",
+      "chatgpt": "A conversational AI by OpenAI — assists with coding, content generation, brainstorming, and problem-solving.",
+      "grok": "An AI assistant by xAI — real-time knowledge, code generation, and technical problem-solving with a direct style."
     }
   },
   "ProjectsPage": {
@@ -149,38 +166,74 @@
   "Projects": {
     "where-is-pizza": {
       "role": "Fullstack",
-      "summary": "Realtime pizza delivery tracking: live courier map, order status over WebSocket.",
+      "summary": "A full-stack pizza-shop storefront: catalog, cart, checkout, JWT authentication.",
       "description": [
-        "A realtime delivery tracking service. Users watch the courier move on a map and see order statuses change without reloading the page.",
-        "A Next.js App Router client with server components for the initial load and a WebSocket channel for live updates. Order state lives in Zustand, server data in TanStack Query.",
-        "Special focus on optimistic updates and connection recovery: when the socket drops, the client re-fetches missed events and merges them into the store."
+        "A pizza shop monorepo: a Next.js client (catalog with filters, cart, checkout, an order-confirmation page, an account area) and a separate Express server.",
+        "The backend runs on Express + Prisma over SQLite: routes and controllers for authentication (JWT, bcrypt), cart, orders, and product filtering.",
+        "On the client — Redux Toolkit with redux-persist for the cart, TanStack Query for server data, react-hook-form with Zod for forms, and swiper/keen-slider for catalog carousels."
       ]
     },
-    "stream-service": {
-      "role": "Frontend Lead",
-      "summary": "Streaming platform: catalog, player, subscriptions. Heavy client-side load.",
-      "description": [
-        "The frontend of a streaming service: content catalog, HLS player, subscription and profile sections. Focused on list performance and smooth navigation.",
-        "React + Redux Toolkit / RTK Query as the server-state source, long-list virtualization, route-based code-splitting, prefetching of adjacent screens.",
-        "The design system is extracted into a separate package and reused across web and mobile apps."
-      ]
-    },
-    "design-system": {
+    "kicks-sneakers": {
       "role": "Frontend",
-      "summary": "A UI kit and design tokens for several products. Storybook, automated package publishing.",
+      "summary": "A sneaker e-commerce store built on Feature-Sliced Design: filterable catalog, auth, user roles.",
       "description": [
-        "A monorepo with a UI kit: a set of typed components, theme tokens, icons. Powers several products from a single source.",
-        "Storybook as a showcase and visual testing ground, Changesets for versioning and automated package publishing to npm.",
-        "Strict typing of the components' public API and contract tests so updates don't break consumer products."
+        "A sneaker store: a catalog with price and category filters, product cards, and sign-up/sign-in with separate admin and regular user roles.",
+        "Frontend on React + TypeScript, structured with Feature-Sliced Design (app / pages / widgets / features / entities / shared), state via Redux Toolkit with redux-persist, server data via TanStack Query.",
+        "The backend is mocked with json-server, forms use react-hook-form with Zod, notifications via react-hot-toast, plus loading skeletons and an error boundary for UI resilience."
       ]
     },
-    "task-flow": {
-      "role": "Fullstack",
-      "summary": "Kanban boards with drag-n-drop, realtime collaboration, and offline mode.",
+    "share-your-tales": {
+      "role": "Mobile Frontend",
+      "summary": "A mobile social network for stories: feed, likes, sharing, dark mode. Apollo GraphQL + Expo.",
       "description": [
-        "A task management tool: boards, columns, cards with drag-n-drop, realtime collaborative editing.",
-        "Next.js + dnd-kit for dragging, Prisma over PostgreSQL, server actions for mutations, and an optimistic UI.",
-        "Offline mode on IndexedDB with later synchronization and conflict resolution when the network is restored."
+        "A mobile social app for posting short stories: a feed, profile, likes and bookmarks, sharing to external platforms, and photo uploads from the gallery or camera.",
+        "React Native on Expo, a GraphQL layer via Apollo Client, navigation combining a stack, a drawer, and tabs from React Navigation, forms via react-hook-form with Zod validation.",
+        "Both dark and light themes are supported, along with a custom splash screen and adaptive icons; gestures run on react-native-gesture-handler and reanimated."
+      ]
+    },
+    "bar-menu-animations": {
+      "role": "Frontend",
+      "summary": "An animated bar landing page: parallax, a drinks slider, and frame-by-frame GSAP animations.",
+      "description": [
+        "A landing page for a bar's cocktail menu: a hero with parallax decorative elements, a drinks slider, a testimonials section — a single-pager dense with animation.",
+        "React 19 with the React Compiler enabled, all animation done with GSAP and @gsap/react, responsiveness via react-responsive, styling with Tailwind CSS v4 through its Vite plugin.",
+        "Built on Vite with Rolldown and a Babel plugin for the React Compiler — an experimental setup aimed at maximum build performance."
+      ]
+    },
+    "eatly": {
+      "role": "Frontend",
+      "summary": "A restaurant brand landing page: menu, testimonials, pricing, and animated modals.",
+      "description": [
+        "A restaurant marketing site: a hero, a menu section with dish cards, testimonials, delivery subscription pricing, and modals with dish details.",
+        "Next.js App Router, UI built on a combination of MUI and Radix UI primitives (dialog, slider, labels), transition animations via Framer Motion.",
+        "State (cart, menu filters) is handled with Zustand, forms (booking, ordering) with react-hook-form, styling with Tailwind CSS on top of the MUI theme."
+      ]
+    },
+    "evogym": {
+      "role": "Frontend",
+      "summary": "A gym landing page with Framer Motion animations, a contact form, and a partners section.",
+      "description": [
+        "A landing page for a fitness brand: a hero with animated graphics, a benefits section, a partners block, and a contact form.",
+        "React and TypeScript on Vite, animations via Framer Motion, the contact form via react-hook-form, styling with Tailwind CSS and a custom scrollbar.",
+        "The project is fully typed and deployed to GitHub Pages via gh-pages."
+      ]
+    },
+    "nexcent-tailwind": {
+      "role": "Frontend",
+      "summary": "A marketing landing page on React and Tailwind: partners section, blog, service cards, CTA blocks.",
+      "description": [
+        "A single-page landing with hero, benefits, blog, and partners/clients sections — a typical marketing site structure for a club or subscription service.",
+        "Built with React and Vite, styled with Tailwind CSS and Flowbite React components, icons via react-icons, smooth section scrolling via react-scroll.",
+        "Deployment is automated with gh-pages, serving the site as static content on GitHub Pages."
+      ]
+    },
+    "hangman": {
+      "role": "Frontend",
+      "summary": "A Hangman game with keyboard input and SVG rendering of the figure based on the mistake count.",
+      "description": [
+        "A classic Hangman game: a random word from a word list, letter input from the keyboard or an on-screen keyboard, the figure drawing gets more complete with each mistake.",
+        "React and TypeScript on Vite; game state — guessed and incorrect letters, win/loss — is derived through hooks without external stores.",
+        "A standalone project for practicing keyboard event handling and conditional SVG rendering."
       ]
     }
   }
