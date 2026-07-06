@@ -5,6 +5,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { Link } from '@/i18n/navigation';
 import type { Project } from '@/entities/project';
+import { getTechIcon } from '@/entities/project';
 import { Show } from '@/shared/ui/show';
 import { UIReveal, UITag } from '@/shared/ui';
 import { uiButtonClassNames } from '@/shared/ui/ui-button/button-styles';
@@ -99,6 +100,21 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
             </Show>
           </div>
         </Show>
+
+        <div className="mt-8">
+          <h2 className="text-caption font-semibold uppercase tracking-wider text-muted-foreground">
+            {t('stack')}
+          </h2>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {project.stack.map((tech) => (
+              <li key={tech}>
+                <UITag tone="outline" icon={getTechIcon(tech)}>
+                  {tech}
+                </UITag>
+              </li>
+            ))}
+          </ul>
+        </div>
       </header>
 
       <UIReveal className="mt-10">
@@ -114,27 +130,12 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
         </div>
       </UIReveal>
 
-      <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_260px] lg:gap-16">
-        <div className="max-w-2xl space-y-5 text-body leading-relaxed text-muted-foreground">
-          {description.map((paragraph, index) => (
-            <UIReveal key={index} delay={index * 0.05}>
-              <p>{paragraph}</p>
-            </UIReveal>
-          ))}
-        </div>
-
-        <aside className="lg:sticky lg:top-24 lg:self-start">
-          <h2 className="text-caption font-semibold uppercase tracking-wider text-muted-foreground">
-            {t('stack')}
-          </h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
-              <li key={tech}>
-                <UITag tone="outline">{tech}</UITag>
-              </li>
-            ))}
-          </ul>
-        </aside>
+      <div className="mt-12 max-w-2xl space-y-5 text-body leading-relaxed text-muted-foreground">
+        {description.map((paragraph, index) => (
+          <UIReveal key={index} delay={index * 0.05}>
+            <p>{paragraph}</p>
+          </UIReveal>
+        ))}
       </div>
 
       <Show when={project.gallery.length > 0}>
