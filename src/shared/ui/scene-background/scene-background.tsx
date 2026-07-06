@@ -49,6 +49,7 @@ uniform vec3 uColorB;
 uniform vec3 uAccent;
 uniform float uGrain;
 uniform float uReduced;   // 1.0 — prefers-reduced-motion
+uniform float uRainStrength; // 1.0 — rain on (dark theme)
 
 // --- Ashima 2D simplex noise ---
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -82,6 +83,67 @@ float snoise(vec2 v) {
 // Дешёвый white-noise хеш — для мелкого film grain.
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+// --- Rain particles (star-like, react to cursor, dark theme only) ---
+float rainParticle(vec2 uv, float time, float layer, vec2 mouseUV) {
+  float gridW = 50.0;
+  float gridH = 60.0 + layer * 5.0;
+  float layerScale = 1.0 + layer * 1.5;
+  float speed = (1.2 + layer * 0.6) * 0.15;
+
+  vec2 g = uv * vec2(gridW, gridH) / layerScale + vec2(0.0, time * speed);
+  vec2 cell = floor(g);
+  vec2 f = fract(g) - 0.5;
+
+  // Mouse position in grid space (для расчёта отталкивания)
+  vec2 mouseGrid = mouseUV * vec2(gridW, gridH) / layerScale - vec2(0.0, time * speed);
+
+  float body = 0.0;
+
+  for (int ix = 0; ix < 3; ix++) {
+    for (int iy = 0; iy < 3; iy++) {
+      vec2 n = vec2(float(ix) - 1.0, float(iy) - 1.0);
+      vec2 nc = cell + n;
+      vec2 nf = f - n;
+
+      float seed = dot(nc, vec2(127.1, 311.7)) + layer * 100.0;
+      float r1 = fract(sin(seed) * 43758.5453);
+      float r2 = fract(sin(seed * 1.7 + 50.0) * 43758.5453);
+
+      float density = 0.35;
+      if (r2 < density) {
+        float xPos = (r1 - 0.5) * 0.7;
+        float yPos = (r2 / density - 0.5) * 0.6;
+
+        // Mouse repulsion: отклоняем частицу от курсора
+        vec2 particleGrid = nc + vec2(xPos, yPos);
+        vec2 diff = particleGrid - mouseGrid;
+        float dist = length(diff);
+        float repelX = 0.0, repelY = 0.0;
+        if (dist < 4.0 && dist > 0.001) {
+          float force = (1.0 - dist / 4.0) * 3.0;
+          repelX = diff.x / dist * force;
+          repelY = diff.y / dist * force;
+        }
+
+        float dx = nf.x - xPos - repelX;
+        float dy = nf.y - yPos - repelY;
+
+        // Компактная круглая частица (звёздочка)
+        float size = 0.035 / layerScale;
+        float d2 = dx * dx + dy * dy;
+        float particle = exp(-d2 / (size * size * 1.5));
+
+        // Лёгкое мерцание при падении
+        float twinkle = 0.8 + 0.2 * sin(time * 3.0 + r1 * 100.0);
+
+        body += particle * (0.25 + 0.45 * r1) * twinkle;
+      }
+    }
+  }
+
+  return clamp(body, 0.0, 0.5);
 }
 
 void main() {
@@ -119,6 +181,18 @@ void main() {
   float lum = dot(col, vec3(0.299, 0.587, 0.114));
   float mask = 1.0 - abs(lum - 0.5) * 2.0;
   col += grain * uGrain * (0.5 + 0.5 * mask);
+
+  // Rain particles — 3 слоя, только тёмная тема, off при reduced motion
+  float rainIntensity = 0.0;
+  if (uRainStrength > 0.5 && uReduced < 0.5) {
+    vec2 mouseUV = uMouse / uResolution;
+    rainIntensity += rainParticle(uv, uTime, 0.0, mouseUV);
+    rainIntensity += rainParticle(uv, uTime, 1.0, mouseUV);
+    rainIntensity += rainParticle(uv, uTime, 2.0, mouseUV);
+    rainIntensity = clamp(rainIntensity, 0.0, 0.6);
+  }
+  // Свечение частиц — мягкое additive
+  col += vec3(0.5, 0.55, 0.85) * rainIntensity;
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -210,6 +284,7 @@ export const SceneBackground: FC = () => {
       accent: gl.getUniformLocation(program, 'uAccent'),
       grain: gl.getUniformLocation(program, 'uGrain'),
       reduced: gl.getUniformLocation(program, 'uReduced'),
+      rainStrength: gl.getUniformLocation(program, 'uRainStrength'),
     };
 
     const reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -283,6 +358,7 @@ export const SceneBackground: FC = () => {
       gl.uniform3fv(u.accent, p.accent);
       gl.uniform1f(u.grain, p.grain);
       gl.uniform1f(u.reduced, reduced ? 1 : 0);
+      gl.uniform1f(u.rainStrength, p.colorA[0] < 0.5 ? 1 : 0);
 
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
