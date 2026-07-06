@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 
 import Image from 'next/image';
@@ -13,6 +13,9 @@ import { useCn } from '@/shared/lib/cn';
 import { Show } from '@/shared/ui/show';
 import { UITag } from '@/shared/ui/ui-tag';
 
+/** Сколько тегов стека показывать на карточке до сворачивания в "+N". */
+const MAX_VISIBLE_TAGS = 4;
+
 /**
  * # Интерфейс пропсов для компонента UICardProject
  * @interface IUICardProjectProps
@@ -24,6 +27,7 @@ import { UITag } from '@/shared/ui/ui-tag';
  * @property {number} [year] - год
  * @property {string} [role] - роль
  * @property {boolean} [priority] - приоритетная загрузка обложки
+ * @property {readonly ReactNode[]} [tagIcons] - иконки тегов, по индексу параллельно `tags`
  * @property {cnParams | string} [className] - доп. классы
  * @property {string} [dataName] - суффикс для `data-name`
  */
@@ -36,19 +40,36 @@ export interface IUICardProjectProps {
   readonly year?: number;
   readonly role?: string;
   readonly priority?: boolean;
+  readonly tagIcons?: readonly ReactNode[];
   readonly className?: cnParams | string;
   readonly dataName?: string;
 }
 
 /**
  * Карточка проекта: обложка, мета, теги, hover-lift. Ведёт на `href`.
+ * Заголовок/описание/теги подрезаны до фиксированной высоты — карточки в
+ * сетке одного размера независимо от длины текста и числа тегов.
  *
  * @component
  */
 export const UICardProject: FC<IUICardProjectProps> = memo(
-  ({ title, summary, cover, tags, href, year, role, priority = false, className, dataName }) => {
+  ({
+    title,
+    summary,
+    cover,
+    tags,
+    href,
+    year,
+    role,
+    priority = false,
+    tagIcons,
+    className,
+    dataName,
+  }) => {
     const shouldReduce = useReducedMotion();
-    const classNames = useCn('group block', className);
+    const classNames = useCn('group block h-full', className);
+    const visibleTags = tags.slice(0, MAX_VISIBLE_TAGS);
+    const hiddenCount = tags.length - visibleTags.length;
 
     return (
       <Link
@@ -87,18 +108,25 @@ export const UICardProject: FC<IUICardProjectProps> = memo(
               </div>
             </Show>
 
-            <h3 className="text-h3 font-semibold text-card-foreground">{title}</h3>
-            <p className="mt-2 line-clamp-2 text-small text-muted-foreground">
+            <h3 className="line-clamp-1 text-h3 font-semibold text-card-foreground">
+              {title}
+            </h3>
+            <p className="mt-2 line-clamp-2 min-h-[2.6em] text-small text-muted-foreground">
               {summary}
             </p>
 
             <Show when={tags.length > 0}>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {tags.map((tag) => (
+              <ul className="mt-auto flex min-h-[2.1rem] flex-wrap items-start gap-2 pt-4">
+                {visibleTags.map((tag, index) => (
                   <li key={tag}>
-                    <UITag>{tag}</UITag>
+                    <UITag icon={tagIcons?.[index]}>{tag}</UITag>
                   </li>
                 ))}
+                <Show when={hiddenCount > 0}>
+                  <li>
+                    <UITag tone="outline">{`+${hiddenCount}`}</UITag>
+                  </li>
+                </Show>
               </ul>
             </Show>
           </div>

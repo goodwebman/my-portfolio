@@ -70,8 +70,33 @@ describe('UICardProject', () => {
   });
 
   it('показывает мета year · role когда переданы', () => {
-    render(<UICardProject {...baseProps} year={2024} role="Fullstack" />);
+    render(<UICardProject {...baseProps} year={2024} role="Frontend" />);
     expect(screen.getByText('2024')).toBeInTheDocument();
-    expect(screen.getByText('Fullstack')).toBeInTheDocument();
+    expect(screen.getByText('Frontend')).toBeInTheDocument();
+  });
+
+  it('показывает максимум 4 тега и сворачивает остаток в "+N"', () => {
+    render(
+      <UICardProject
+        {...baseProps}
+        tags={['Next.js', 'Express', 'Prisma', 'TypeScript', 'Redux Toolkit', 'Zod']}
+      />,
+    );
+    expect(screen.getByText('Next.js')).toBeInTheDocument();
+    expect(screen.getByText('TypeScript')).toBeInTheDocument();
+    expect(screen.queryByText('Redux Toolkit')).not.toBeInTheDocument();
+    expect(screen.queryByText('Zod')).not.toBeInTheDocument();
+    expect(screen.getByText('+2')).toBeInTheDocument();
+  });
+
+  it('рендерит tagIcons по индексу параллельно tags', () => {
+    const { container } = render(
+      <UICardProject
+        {...baseProps}
+        tagIcons={[<svg key="0" data-testid="icon-Next.js" />, <svg key="1" data-testid="icon-TypeScript" />]}
+      />,
+    );
+    expect(container.querySelector('[data-testid="icon-Next.js"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-testid="icon-TypeScript"]')).toBeInTheDocument();
   });
 });

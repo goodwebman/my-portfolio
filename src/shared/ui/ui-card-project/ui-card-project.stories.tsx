@@ -1,10 +1,20 @@
+import type { ReactNode } from 'react';
+
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { SiNextdotjs, SiTypescript } from 'react-icons/si';
 
 import { UICardProject } from './ui-card-project';
 
+const STORY_ICONS: Record<string, ReactNode> = {
+  'Next.js': <SiNextdotjs />,
+  TypeScript: <SiTypescript style={{ color: '#3178C6' }} />,
+};
+
 /**
- * `UICardProject` — карточка проекта: обложка, мета (год · роль), теги,
- * hover-lift. Оборачивает контент в locale-aware `Link` на `href`.
+ * `UICardProject` — карточка проекта: обложка, мета (год · роль), теги (с
+ * иконками технологий, макс. `4` + "+N"), hover-lift. Заголовок и описание
+ * подрезаны до фиксированной высоты — карточки в сетке одного размера.
+ * Оборачивает контент в locale-aware `Link` на `href`.
  */
 const meta = {
   component: UICardProject,
@@ -23,11 +33,13 @@ const meta = {
     cover: '/projects/where-is-pizza/cover.svg',
     href: '/projects/where-is-pizza',
     tags: ['Next.js', 'TypeScript', 'WebSocket'],
+    tagIcons: ['Next.js', 'TypeScript', 'WebSocket'].map((tag) => STORY_ICONS[tag]),
     year: 2024,
-    role: 'Fullstack',
+    role: 'Frontend',
   },
   argTypes: {
     tags: { control: 'object' },
+    tagIcons: { control: false },
   },
 } satisfies Meta<typeof UICardProject>;
 
@@ -45,4 +57,11 @@ export const WithoutMeta: Story = {
 /** Без тегов — список тегов не рендерится. */
 export const WithoutTags: Story = {
   args: { tags: [] },
+};
+
+/** Больше `4` тегов — лишние сворачиваются в "+N". */
+export const ManyTags: Story = {
+  args: {
+    tags: ['Next.js', 'Express', 'Prisma', 'TypeScript', 'Redux Toolkit', 'TanStack Query', 'Zod'],
+  },
 };

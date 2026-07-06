@@ -13,6 +13,7 @@ const meta = {
   args: {
     delay: 0,
     y: 24,
+    scale: 1,
     once: true,
     children: (
       <div className="rounded-card border border-border bg-card p-6 text-center text-body text-card-foreground">
@@ -33,4 +34,9 @@ export const Default: Story = {};
 
 export const WithDelay: Story = {
   args: { delay: 0.4 },
+};
+
+/** Со `scale` — появление с лёгким pop-in (spring), как у карточек проектов. */
+export const WithScale: Story = {
+  args: { scale: 0.94 },
 };
