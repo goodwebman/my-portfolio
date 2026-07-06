@@ -46,4 +46,16 @@ describe('UITag', () => {
     expect(root).toHaveTextContent('Next.js');
     expect(root).toHaveClass('uppercase');
   });
+
+  it('рендерит icon перед текстом, когда передан', () => {
+    const { container } = render(
+      <UITag icon={<svg data-testid="tech-icon" />}>React</UITag>,
+    );
+    expect(container.querySelector('[data-testid="tech-icon"]')).toBeInTheDocument();
+  });
+
+  it('не рендерит обёртку иконки без icon', () => {
+    const { container } = render(<UITag>React</UITag>);
+    expect(container.querySelector('[aria-hidden="true"]')).not.toBeInTheDocument();
+  });
 });

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { SiTypescript } from 'react-icons/si';
 
 import { UITag } from './ui-tag';
 
@@ -33,4 +34,9 @@ export const Accent: Story = {
 
 export const Outline: Story = {
   args: { tone: 'outline' },
+};
+
+/** С иконкой перед текстом — например, лого технологии из `react-icons/si`. */
+export const WithIcon: Story = {
+  args: { icon: <SiTypescript style={{ color: '#3178C6' }} /> },
 };
