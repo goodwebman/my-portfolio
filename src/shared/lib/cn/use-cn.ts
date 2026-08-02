@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
 import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
 import type { cnParams } from './cn';
+import { twMerge } from './tw-merge';
 
 /**
  * # Мемоизированная версия `cn`

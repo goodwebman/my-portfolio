@@ -1,8 +1,13 @@
+import type { Metadata } from 'next';
+
 import { getTranslations } from 'next-intl/server';
 
-import { Link } from '@/shared/i18n';
-import { UIContainer } from '@/shared/ui';
-import { uiButtonClassNames } from '@/shared/ui/ui-button';
+import { UIContainer, UILinkButton } from '@/shared/ui';
+
+/** 404 не должна попадать в индекс — иначе поисковик хранит «мусорные» URL. */
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 
 /** 404 в пределах локали. */
 export default async function NotFound() {
@@ -16,12 +21,15 @@ export default async function NotFound() {
         <p className="mt-3 max-w-md text-body text-muted-foreground">
           {t('description')}
         </p>
-        <Link
+        <UILinkButton
           href="/"
-          className={`mt-8 ${uiButtonClassNames({ variant: 'accent', size: 'M' })}`}
+          variant="accent"
+          size="M"
+          className="mt-8"
+          dataName="not-found-home"
         >
           {t('home')}
-        </Link>
+        </UILinkButton>
       </div>
     </UIContainer>
   );

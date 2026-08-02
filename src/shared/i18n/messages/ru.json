@@ -84,7 +84,8 @@
   "Common": {
     "close": "Закрыть",
     "prev": "Предыдущая",
-    "next": "Следующая"
+    "next": "Следующая",
+    "backToTop": "Наверх"
   },
   "Skills": {
     "frontend": "Frontend",

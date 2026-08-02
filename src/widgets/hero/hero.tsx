@@ -8,10 +8,9 @@ import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { LuArrowRight } from 'react-icons/lu';
 
-import { Link } from '@/shared/i18n';
 import { SITE } from '@/shared/config';
 import { registerGsap } from '@/shared/lib/gsap';
-import { UIAvatar, UIContainer, uiButtonClassNames } from '@/shared/ui';
+import { UIAvatar, UIBadge, UIContainer, UILinkButton } from '@/shared/ui';
 
 /** Главный экран: GSAP-ревил заголовка по словам + parallax аватара. */
 export const Hero: FC = () => {
@@ -64,18 +63,14 @@ export const Hero: FC = () => {
       <UIContainer>
         <div className="grid items-center gap-12 py-20 sm:py-28 lg:grid-cols-[1.4fr_1fr] lg:py-32">
           <div>
-            <p
-              data-gsap="fade-up"
-              className="inline-flex items-center gap-2 rounded-pill border border-border bg-card px-3 py-1 text-caption font-medium text-muted-foreground"
-            >
-              <span className="size-2 rounded-full bg-accent" />
+            <UIBadge data-gsap="fade-up">
               {tSite('role')} · {tSite('location')}
-            </p>
+            </UIBadge>
 
             <h1 className="mt-6 text-display font-bold text-foreground">
               {headingWords.map((word, index) => (
                 <span
-                  key={`${word}-${index}`}
+                  key={`${word}-${String(index)}`}
                   className="mr-[0.22em] inline-block overflow-hidden pb-[0.12em] mb-[-0.12em]"
                 >
                   <span data-gsap="word" className="inline-block will-change-transform">
@@ -93,26 +88,17 @@ export const Hero: FC = () => {
             </p>
 
             <div data-gsap="fade-up" className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/projects"
-                className={uiButtonClassNames({ variant: 'accent', size: 'M' })}
-              >
+              <UILinkButton href="/projects" variant="accent" size="M">
                 {t('ctaProjects')}
                 <LuArrowRight className="size-5" />
-              </Link>
-              <Link
-                href="/contact"
-                className={uiButtonClassNames({ variant: 'outline', size: 'M' })}
-              >
+              </UILinkButton>
+              <UILinkButton href="/contact" variant="outline" size="M">
                 {t('ctaContact')}
-              </Link>
+              </UILinkButton>
             </div>
           </div>
 
-          <div
-            data-gsap="fade-up"
-            className="flex justify-center lg:justify-end"
-          >
+          <div data-gsap="fade-up" className="flex justify-center lg:justify-end">
             <div ref={avatarRef} className="will-change-transform">
               <UIAvatar
                 src={SITE.avatar}

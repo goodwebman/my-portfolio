@@ -3,6 +3,8 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
+import { useReducedMotion } from 'motion/react';
+
 /**
  * Бесконечно крутящаяся вертикальная карусель иконок.
  *
@@ -39,6 +41,28 @@ export const UIIconStream = memo<IUIIconStreamProps>(({
   const cycleHeightRef = useRef(0);
   const pxPerMsRef = useRef(0);
   const [repetitions, setRepetitions] = useState(3);
+  const [inView, setInView] = useState(false);
+  const shouldReduce = useReducedMotion();
+
+  // Лента чисто декоративная: за пределами вьюпорта крутить её незачем —
+  // rAF-цикл выключается, пока контейнер не появится на экране.
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+      },
+      // Запас, чтобы лента уже двигалась к моменту появления в кадре.
+      { rootMargin: '200px' },
+    );
+    io.observe(container);
+
+    return () => {
+      io.disconnect();
+    };
+  }, []);
 
   // Следим за размером контейнера и пересчитываем количество повторов
   useEffect(() => {
@@ -74,10 +98,11 @@ export const UIIconStream = memo<IUIIconStreamProps>(({
     return () => ro.disconnect();
   }, [icons, gap]);
 
-  // Анимация
+  // Анимация. Не запускается вне вьюпорта и при prefers-reduced-motion —
+  // в обоих случаях лента остаётся статичной, но по-прежнему заполняет контейнер.
   useEffect(() => {
     const el = innerRef.current;
-    if (!el) return;
+    if (!el || !inView || shouldReduce) return;
 
     const children = Array.from(el.children);
     const setLen = icons.length;
@@ -94,9 +119,9 @@ export const UIIconStream = memo<IUIIconStreamProps>(({
     cycleHeightRef.current = cyclePx;
     pxPerMsRef.current = cyclePx / (speed * 1000);
 
+    // Сдвиг намеренно не сбрасывается: контент периодичен с шагом cyclePx,
+    // поэтому пауза (уход из вьюпорта) и возобновление проходят без рывка.
     lastTimeRef.current = 0;
-    shiftRef.current = 0;
-    el.style.transform = 'translateZ(0)';
 
     // translateY всегда в [-cyclePx, 0] — контейнер (он выше на cyclePx,
     // чем реально нужно) остаётся полностью закрытым в любой момент анимации,
@@ -119,7 +144,7 @@ export const UIIconStream = memo<IUIIconStreamProps>(({
     return () => {
       cancelAnimationFrame(rafRef.current);
     };
-  }, [icons, speed, direction, gap, repetitions]);
+  }, [icons, speed, direction, gap, repetitions, inView, shouldReduce]);
 
   if (!icons.length) return null;
 

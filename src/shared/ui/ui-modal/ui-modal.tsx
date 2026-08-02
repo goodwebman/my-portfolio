@@ -9,6 +9,7 @@ import { LuChevronLeft, LuChevronRight, LuX } from 'react-icons/lu';
 import type { cnParams } from '@/shared/lib/cn';
 import { useCn } from '@/shared/lib/cn';
 import { Show } from '@/shared/ui/show';
+import { UIIconButton } from '@/shared/ui/ui-icon-button';
 
 /**
  * # Интерфейс пропсов для компонента UIModal
@@ -39,8 +40,8 @@ export interface IUIModalProps {
   readonly dataName?: string;
 }
 
-const ARROW_CLASS =
-  'absolute top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-border bg-card/90 text-foreground shadow-lg outline-none backdrop-blur transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring';
+/** Позиционирование боковых стрелок — оформление берётся из `UIIconButton`. */
+const ARROW_CLASS = 'absolute top-1/2 -translate-y-1/2';
 
 /**
  * Модалка-лайтбокс: затемняющий оверлей с blur, центральная панель и опциональные
@@ -112,9 +113,10 @@ export const UIModal: FC<IUIModalProps> = ({
           onClick={onClose}
         >
           <Show when={Boolean(onPrev)}>
-            <button
-              type="button"
-              aria-label={prevLabel}
+            <UIIconButton
+              label={prevLabel}
+              variant="glass"
+              size="L"
               className={`${ARROW_CLASS} left-3 sm:left-6`}
               onClick={(event) => {
                 event.stopPropagation();
@@ -122,13 +124,14 @@ export const UIModal: FC<IUIModalProps> = ({
               }}
             >
               <LuChevronLeft className="size-5" />
-            </button>
+            </UIIconButton>
           </Show>
 
           <Show when={Boolean(onNext)}>
-            <button
-              type="button"
-              aria-label={nextLabel}
+            <UIIconButton
+              label={nextLabel}
+              variant="glass"
+              size="L"
               className={`${ARROW_CLASS} right-3 sm:right-6`}
               onClick={(event) => {
                 event.stopPropagation();
@@ -136,7 +139,7 @@ export const UIModal: FC<IUIModalProps> = ({
               }}
             >
               <LuChevronRight className="size-5" />
-            </button>
+            </UIIconButton>
           </Show>
 
           <motion.div
@@ -151,15 +154,16 @@ export const UIModal: FC<IUIModalProps> = ({
             }
             onClick={(event) => event.stopPropagation()}
           >
-            <button
+            <UIIconButton
               ref={closeRef}
-              type="button"
-              aria-label={closeLabel}
+              label={closeLabel}
+              variant="plain"
+              size="S"
+              className="absolute right-3 top-3"
               onClick={onClose}
-              className="absolute right-3 top-3 grid size-9 place-items-center rounded-full text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
             >
               <LuX className="size-5" />
-            </button>
+            </UIIconButton>
             {children}
           </motion.div>
         </motion.div>

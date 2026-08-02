@@ -1,8 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
-import { Link } from '@/shared/i18n';
 import { SITE } from '@/shared/config';
-import { UIContainer } from '@/shared/ui';
+import { UIContainer, UILogo } from '@/shared/ui';
 
 import { FooterNav } from './footer-nav';
 import { FooterSocials } from './footer-socials';
@@ -18,12 +17,7 @@ export async function SiteFooter() {
       <UIContainer>
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 font-semibold">
-              <span className="grid size-8 place-items-center rounded-lg bg-accent font-mono text-accent-foreground">
-                &lt;/&gt;
-              </span>
-              {SITE.name}
-            </Link>
+            <UILogo name={SITE.name} variant="footer" dataName="footer" />
             <p className="mt-4 max-w-sm text-small text-muted-foreground">
               {tSite('shortBio')}
             </p>

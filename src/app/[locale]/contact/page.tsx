@@ -2,10 +2,16 @@ import type { Metadata } from 'next';
 
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import type { Locale } from '@/shared/i18n';
 import { SITE } from '@/shared/config';
-import { UIContainer, UISection, UISectionHeading } from '@/shared/ui';
-import { uiButtonClassNames } from '@/shared/ui/ui-button';
+import type { Locale } from '@/shared/i18n';
+import { buildBreadcrumbJsonLd, buildPageMetadata } from '@/shared/lib/seo';
+import {
+  JsonLd,
+  UIContainer,
+  UILinkButton,
+  UISection,
+  UISectionHeading,
+} from '@/shared/ui';
 import { ContactLinks } from '@/widgets/contact-links';
 
 interface ContactPageProps {
@@ -18,19 +24,29 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale: locale as Locale, namespace: 'Meta' });
 
-  return {
+  return buildPageMetadata({
+    locale: locale as Locale,
+    href: '/contact',
     title: t('contactTitle'),
     description: t('contactDescription'),
-  };
+  });
 }
 
 export default async function ContactPage({ params }: ContactPageProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  const typedLocale = locale as Locale;
+  setRequestLocale(typedLocale);
   const t = await getTranslations('Contact');
+  const tNav = await getTranslations('Nav');
 
   return (
     <UISection>
+      <JsonLd
+        data={buildBreadcrumbJsonLd(typedLocale, [
+          { name: tNav('home'), href: '/' },
+          { name: tNav('contact'), href: '/contact' },
+        ])}
+      />
       <UIContainer className="max-w-3xl">
         <UISectionHeading
           eyebrow={t('eyebrow')}
@@ -38,12 +54,14 @@ export default async function ContactPage({ params }: ContactPageProps) {
           description={t('description')}
         />
         <div className="mt-6">
-          <a
+          <UILinkButton
             href={`mailto:${SITE.email}`}
-            className={uiButtonClassNames({ variant: 'accent', size: 'M' })}
+            variant="accent"
+            size="M"
+            dataName="write-email"
           >
             {t('writeTo', { email: SITE.email })}
-          </a>
+          </UILinkButton>
         </div>
         <div className="mt-10">
           <ContactLinks />

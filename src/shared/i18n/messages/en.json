@@ -84,7 +84,8 @@
   "Common": {
     "close": "Close",
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "backToTop": "Back to top"
   },
   "Skills": {
     "frontend": "Frontend",

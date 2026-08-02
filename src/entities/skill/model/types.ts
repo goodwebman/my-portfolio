@@ -18,14 +18,7 @@ export interface Skill {
   readonly usage: number;
 }
 
-/** Заголовки категорий для UI. */
-export const SKILL_CATEGORY_LABEL: Record<SkillCategory, string> = {
-  frontend: 'Frontend',
-  tools: 'Tools',
-  ai: 'AI',
-};
-
-/** Порядок вывода категорий. */
+/** Порядок вывода категорий. Подписи — в messages (`Skills.<category>`). */
 export const SKILL_CATEGORY_ORDER: readonly SkillCategory[] = [
   'frontend',
   'tools',

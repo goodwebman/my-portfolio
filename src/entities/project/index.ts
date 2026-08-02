@@ -2,7 +2,7 @@ export {
   PROJECTS,
   getFeaturedProjects,
   getProjectBySlug,
-  getTechIcon,
   type Project,
   type ProjectLinks,
 } from './model';
+export { ProjectCard, getTechIcon, type IProjectCardProps } from './ui';

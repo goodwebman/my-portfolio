@@ -4,7 +4,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { SKILL_CATEGORY_ORDER } from '@/entities/skill';
 import type { Locale } from '@/shared/i18n';
-import { UIContainer, UISection, UISectionHeading } from '@/shared/ui';
+import { buildBreadcrumbJsonLd, buildPageMetadata } from '@/shared/lib/seo';
+import { JsonLd, UIContainer, UISection, UISectionHeading } from '@/shared/ui';
 import { SkillsGrid } from '@/widgets/skills-grid';
 
 interface TechStackPageProps {
@@ -17,20 +18,30 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale: locale as Locale, namespace: 'Meta' });
 
-  return {
+  return buildPageMetadata({
+    locale: locale as Locale,
+    href: '/tech-stack',
     title: t('techStackTitle'),
     description: t('techStackDescription'),
-  };
+  });
 }
 
 export default async function TechStackPage({ params }: TechStackPageProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  const typedLocale = locale as Locale;
+  setRequestLocale(typedLocale);
   const t = await getTranslations('TechStack');
   const tSkills = await getTranslations('Skills');
+  const tNav = await getTranslations('Nav');
 
   return (
     <UISection>
+      <JsonLd
+        data={buildBreadcrumbJsonLd(typedLocale, [
+          { name: tNav('home'), href: '/' },
+          { name: tNav('techStack'), href: '/tech-stack' },
+        ])}
+      />
       <UIContainer>
         <UISectionHeading
           eyebrow={t('eyebrow')}

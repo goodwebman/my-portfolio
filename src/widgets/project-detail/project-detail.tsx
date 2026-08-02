@@ -1,14 +1,17 @@
-import type { FC } from 'react';
-
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
-import { Link } from '@/shared/i18n';
 import type { Project } from '@/entities/project';
 import { getTechIcon } from '@/entities/project';
-import { Show } from '@/shared/ui/show';
-import { UIReveal, UITag } from '@/shared/ui';
-import { uiButtonClassNames } from '@/shared/ui/ui-button';
+import {
+  IconArrowLeft,
+  IconExternal,
+  Show,
+  UILinkButton,
+  UIReveal,
+  UITag,
+  UITextLink,
+} from '@/shared/ui';
 
 import { ProjectGallery } from './project-gallery';
 
@@ -16,34 +19,10 @@ export interface IProjectDetailProps {
   readonly project: Project;
 }
 
-const IconArrowLeft: FC = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden="true">
-    <path
-      d="M15 18l-6-6 6-6"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const IconExternal: FC = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden="true">
-    <path
-      d="M7 17L17 7M17 7H8M17 7v9"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 /**
  * Детальная страница кейса: обложка, описание, стек, ссылки и галерея.
- * Server component — тексты проекта резолвятся из messages по slug, внешние
- * ссылки — обычные `<a>`, галерея — client-лист.
+ * Server component — тексты проекта резолвятся из messages по slug,
+ * галерея — client-лист.
  */
 export async function ProjectDetail({ project }: IProjectDetailProps) {
   const t = await getTranslations('ProjectDetail');
@@ -55,13 +34,10 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
 
   return (
     <article>
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-1.5 text-small text-muted-foreground transition-colors hover:text-foreground"
-      >
+      <UITextLink href="/projects" tone="muted" dataName="all-projects">
         <IconArrowLeft />
         {t('allProjects')}
-      </Link>
+      </UITextLink>
 
       <header className="mt-6 max-w-3xl">
         <div className="flex items-center gap-2 text-small text-muted-foreground">
@@ -74,29 +50,29 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
         <h1 className="mt-3 text-h1 font-bold text-foreground">{project.title}</h1>
         <p className="mt-4 text-body text-muted-foreground sm:text-lg">{summary}</p>
 
-        <Show when={Boolean(project.links.live || project.links.repo)}>
+        <Show when={Boolean(project.links.live ?? project.links.repo)}>
           <div className="mt-6 flex flex-wrap gap-3">
             <Show when={Boolean(project.links.live)}>
-              <a
-                href={project.links.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={uiButtonClassNames({ variant: 'accent', size: 'M' })}
+              <UILinkButton
+                href={project.links.live ?? ''}
+                variant="accent"
+                size="M"
+                dataName="live"
               >
                 {t('openProject')}
                 <IconExternal />
-              </a>
+              </UILinkButton>
             </Show>
             <Show when={Boolean(project.links.repo)}>
-              <a
-                href={project.links.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={uiButtonClassNames({ variant: 'outline', size: 'M' })}
+              <UILinkButton
+                href={project.links.repo ?? ''}
+                variant="outline"
+                size="M"
+                dataName="repo"
               >
                 {t('sourceCode')}
                 <IconExternal />
-              </a>
+              </UILinkButton>
             </Show>
           </div>
         </Show>
@@ -132,7 +108,7 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
 
       <div className="mt-12 max-w-2xl space-y-5 text-body leading-relaxed text-muted-foreground">
         {description.map((paragraph, index) => (
-          <UIReveal key={index} delay={index * 0.05}>
+          <UIReveal key={paragraph} delay={index * 0.05}>
             <p>{paragraph}</p>
           </UIReveal>
         ))}

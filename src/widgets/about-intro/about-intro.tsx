@@ -2,11 +2,15 @@ import { getTranslations } from 'next-intl/server';
 
 import { LuBriefcase, LuCalendar, LuMail, LuMapPin } from 'react-icons/lu';
 
-import { Link } from '@/shared/i18n';
 import { SITE } from '@/shared/config';
-import { UIAvatar, UIGradient, UIReveal } from '@/shared/ui';
-import { uiButtonClassNames } from '@/shared/ui/ui-button';
-import { AboutWordReveal } from '@/widgets/about-intro/about-word-reveal';
+import {
+  UIAvatar,
+  UIBadge,
+  UIFactCard,
+  UILinkButton,
+  UIReveal,
+  UIWordReveal,
+} from '@/shared/ui';
 
 /** Секция «Обо мне»: аватар, факты и биография. Server component. */
 export async function AboutIntro() {
@@ -23,8 +27,6 @@ export async function AboutIntro() {
 
   return (
     <div className="relative grid gap-10 lg:grid-cols-[300px_1fr] lg:gap-16">
-     
-
       <UIReveal className="lg:sticky lg:top-24 lg:self-start">
         <div className="flex flex-col items-start gap-6">
           <UIAvatar
@@ -36,32 +38,17 @@ export async function AboutIntro() {
             className="size-52"
           />
           <div>
-            <AboutWordReveal
+            <UIWordReveal
               as="h1"
               text={SITE.name}
               className="text-h1 font-extrabold tracking-tight text-foreground"
             />
-            <p className="mt-3 inline-flex items-center gap-2 rounded-pill border border-border bg-card px-3 py-1 text-caption font-medium text-muted-foreground">
-              <span className="size-2 rounded-full bg-accent" />
-              {tSite('role')}
-            </p>
+            <UIBadge className="mt-3">{tSite('role')}</UIBadge>
           </div>
           <dl className="grid w-full grid-cols-1 gap-3">
             {facts.map((fact, index) => (
               <UIReveal key={fact.label} delay={index * 0.05}>
-                <div className="group relative flex items-center gap-3 overflow-hidden rounded-2xl border border-accent/20 p-4 transition-all duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/15">
-                  <UIGradient
-                    variant="card"
-                    className="absolute inset-0 opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-                  />
-                  <fact.icon className="relative size-5 shrink-0 text-accent" />
-                  <div className="relative min-w-0">
-                    <dt className="text-caption text-muted-foreground">{fact.label}</dt>
-                    <dd className="mt-0.5 wrap-break-word text-small font-bold text-card-foreground">
-                      {fact.value}
-                    </dd>
-                  </div>
-                </div>
+                <UIFactCard icon={fact.icon} label={fact.label} value={fact.value} />
               </UIReveal>
             ))}
           </dl>
@@ -72,7 +59,7 @@ export async function AboutIntro() {
         <p className="text-caption font-semibold uppercase tracking-wider text-accent">
           {t('eyebrow')}
         </p>
-        <AboutWordReveal
+        <UIWordReveal
           as="h2"
           text={t('heading')}
           className="mt-2 text-balance text-h2 font-bold text-foreground"
@@ -80,7 +67,7 @@ export async function AboutIntro() {
         />
         <div className="mt-6 space-y-4 leading-relaxed">
           {bio.map((paragraph, index) => (
-            <UIReveal key={index} delay={index * 0.05}>
+            <UIReveal key={paragraph} delay={index * 0.05}>
               <p
                 className={
                   index === 0
@@ -95,18 +82,12 @@ export async function AboutIntro() {
         </div>
         <UIReveal delay={0.1}>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/projects"
-              className={uiButtonClassNames({ variant: 'accent' })}
-            >
+            <UILinkButton href="/projects" variant="accent">
               {t('ctaProjects')}
-            </Link>
-            <Link
-              href="/contact"
-              className={uiButtonClassNames({ variant: 'outline' })}
-            >
+            </UILinkButton>
+            <UILinkButton href="/contact" variant="outline">
               {t('ctaContact')}
-            </Link>
+            </UILinkButton>
           </div>
         </UIReveal>
       </div>

@@ -5,9 +5,20 @@ import type { FC } from 'react';
 import type { Variants } from 'motion/react';
 import { motion, useReducedMotion } from 'motion/react';
 
-export interface IAboutWordRevealProps {
+/** Тег заголовка, которым рендерится ревил. */
+export type UIWordRevealTag = 'h1' | 'h2';
+
+/**
+ * # Интерфейс пропсов для компонента UIWordReveal
+ * @interface IUIWordRevealProps
+ * @property {string} text - текст заголовка (разбивается по пробелам)
+ * @property {UIWordRevealTag} [as] - тег заголовка
+ * @property {string} [className] - классы заголовка
+ * @property {number} [delay] - задержка старта каскада, сек
+ */
+export interface IUIWordRevealProps {
   readonly text: string;
-  readonly as?: 'h1' | 'h2';
+  readonly as?: UIWordRevealTag;
   readonly className?: string;
   readonly delay?: number;
 }
@@ -33,10 +44,12 @@ const word: Variants = {
 
 /**
  * Заголовок с покадровым появлением по словам (blur → в фокус, снизу вверх).
- * Отдельная от `UIReveal` анимация — авторская подпись страницы «Обо мне».
+ * Отдельная от `UIReveal` анимация — «авторская подпись» страниц.
  * При `prefers-reduced-motion` рендерит статичный текст без анимации.
+ *
+ * @component
  */
-export const AboutWordReveal: FC<IAboutWordRevealProps> = ({
+export const UIWordReveal: FC<IUIWordRevealProps> = ({
   text,
   as = 'h1',
   className,
@@ -47,6 +60,7 @@ export const AboutWordReveal: FC<IAboutWordRevealProps> = ({
 
   if (shouldReduce) {
     const Tag = as;
+
     return <Tag className={className}>{text}</Tag>;
   }
 
@@ -63,7 +77,7 @@ export const AboutWordReveal: FC<IAboutWordRevealProps> = ({
     >
       {words.map((w, index) => (
         <motion.span
-          key={`${w}-${index}`}
+          key={`${w}-${String(index)}`}
           variants={word}
           className="mr-[0.25em] inline-block will-change-transform"
         >
@@ -73,4 +87,4 @@ export const AboutWordReveal: FC<IAboutWordRevealProps> = ({
     </MotionTag>
   );
 };
-AboutWordReveal.displayName = 'AboutWordReveal';
+UIWordReveal.displayName = 'UIWordReveal';

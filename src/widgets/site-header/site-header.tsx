@@ -1,24 +1,28 @@
 'use client';
 
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { LuMenu, LuX } from 'react-icons/lu';
 
-import { Link, usePathname } from '@/shared/i18n';
 import { NAV, SITE } from '@/shared/config';
+import { usePathname } from '@/shared/i18n';
 import { cn } from '@/shared/lib/cn';
-import { useMediaQuery } from '@/shared/lib/hooks';
-import { UIThemeToggle } from '@/shared/ui';
+import { useMediaQuery, useScrolledPast } from '@/shared/lib/hooks';
+import { UIIconButton, UILogo, UINavLink, UIThemeToggle } from '@/shared/ui';
 
 import { LanguageSwitcher } from './language-switcher';
 
+/** Раздел считается активным для вложенных маршрутов, кроме главной. */
 const isActiveHref = (pathname: string, href: string): boolean =>
   href === '/' ? pathname === '/' : pathname.startsWith(href);
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+/** После какого сдвига (px) капсула шапки уплотняется. */
+const SCROLL_OFFSET = 8;
 
 /**
  * Плавающий остров-навигация: стеклянная капсула, оторванная от краёв, поверх
@@ -31,26 +35,14 @@ export const SiteHeader: FC = () => {
   const pathname = usePathname();
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const shouldReduce = useReducedMotion();
+  const scrolled = useScrolledPast(SCROLL_OFFSET);
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   // Дровер существует только на мобиле: на десктопе он схлопнут независимо от `open`.
   const drawerOpen = open && !isDesktop;
 
-  useEffect(() => {
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      setScrolled(window.scrollY > 8);
-    };
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    requestAnimationFrame(update); // начальное состояние (deferred)
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const closeMenu = () => {
+    setOpen(false);
+  };
 
   return (
     <header className="pointer-events-none sticky top-0 z-999999999 px-4 pt-3 sm:px-6 sm:pt-4 lg:px-8">
@@ -66,47 +58,29 @@ export const SiteHeader: FC = () => {
               : 'border-border/60 bg-card/55 shadow-[0_8px_30px_-14px_rgba(0,0,0,0.45)]',
           )}
         >
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className="group flex items-center gap-2 rounded-full pl-1 pr-2 font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <span className="grid size-9 place-items-center rounded-full bg-accent font-mono text-accent-foreground shadow-[0_0_20px_-4px_var(--accent)] transition-transform duration-300 group-hover:scale-105">
-              &lt;/&gt;
-            </span>
-            <span className="hidden pr-1 sm:inline">{SITE.name}</span>
-          </Link>
+          <UILogo
+            name={SITE.name}
+            variant="header"
+            onClick={closeMenu}
+            dataName="header"
+          />
 
           <nav
             className="hidden flex-1 items-center justify-center gap-0.5 md:flex"
             aria-label={t('mainNav')}
           >
-            {NAV.map((item) => {
-              const active = isActiveHref(pathname, item.href);
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={cn(
-                    'relative rounded-full px-3.5 py-1.5 text-small font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring',
-                    active
-                      ? 'text-accent'
-                      : 'text-muted-foreground hover:text-foreground',
-                  )}
-                >
-                  {active ? (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute inset-0 -z-10 rounded-full bg-accent/15 ring-1 ring-inset ring-accent/25"
-                      transition={{ duration: 0.35, ease: EASE }}
-                    />
-                  ) : null}
-                  {tNav(item.key)}
-                </Link>
-              );
-            })}
+            {NAV.map((item) => (
+              <UINavLink
+                key={item.href}
+                href={item.href}
+                variant="pill"
+                active={isActiveHref(pathname, item.href)}
+                layoutId="nav-active"
+                dataName={item.key}
+              >
+                {tNav(item.key)}
+              </UINavLink>
+            ))}
           </nav>
 
           <div className="flex items-center gap-1.5">
@@ -116,12 +90,15 @@ export const SiteHeader: FC = () => {
               labelToLight={t('themeToLight')}
               className="max-md:bg-transparent max-md:border-transparent"
             />
-            <button
-              type="button"
-              className="grid size-10 place-items-center rounded-full bg-transparent text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring md:hidden"
-              aria-label={open ? t('closeMenu') : t('openMenu')}
+            <UIIconButton
+              label={open ? t('closeMenu') : t('openMenu')}
+              variant="ghost"
+              className="md:hidden"
               aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
+              dataName="menu"
+              onClick={() => {
+                setOpen((v) => !v);
+              }}
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
@@ -135,7 +112,7 @@ export const SiteHeader: FC = () => {
                   {open ? <LuX className="size-5" /> : <LuMenu className="size-5" />}
                 </motion.span>
               </AnimatePresence>
-            </button>
+            </UIIconButton>
           </div>
         </motion.div>
 
@@ -148,30 +125,19 @@ export const SiteHeader: FC = () => {
               exit={shouldReduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
               transition={{ duration: 0.28, ease: EASE }}
             >
-              <nav
-                className="flex flex-col gap-1 p-3"
-                aria-label={t('mobileNav')}
-              >
-                {NAV.map((item) => {
-                  const active = isActiveHref(pathname, item.href);
-
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      aria-current={active ? 'page' : undefined}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        'rounded-2xl px-4 py-3 text-body font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring',
-                        active
-                          ? 'bg-accent/15 text-accent ring-1 ring-inset ring-accent/25'
-                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                      )}
-                    >
-                      {tNav(item.key)}
-                    </Link>
-                  );
-                })}
+              <nav className="flex flex-col gap-1 p-3" aria-label={t('mobileNav')}>
+                {NAV.map((item) => (
+                  <UINavLink
+                    key={item.href}
+                    href={item.href}
+                    variant="drawer"
+                    active={isActiveHref(pathname, item.href)}
+                    onClick={closeMenu}
+                    dataName={item.key}
+                  >
+                    {tNav(item.key)}
+                  </UINavLink>
+                ))}
               </nav>
             </motion.div>
           ) : null}

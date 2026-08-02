@@ -1,11 +1,14 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import { Fragment } from 'react';
-
-import { Link } from '@/shared/i18n';
+import { getFeaturedProjects, ProjectCard } from '@/entities/project';
 import type { Locale } from '@/shared/i18n';
-import { getFeaturedProjects, getTechIcon } from '@/entities/project';
-import { UICardProject, UIContainer, UISection, UISectionHeading, UIShowcase } from '@/shared/ui';
+import {
+  UIContainer,
+  UISection,
+  UISectionHeading,
+  UIShowcase,
+  UITextLink,
+} from '@/shared/ui';
 import { BackToTop } from '@/widgets/back-to-top';
 import { CtaSection } from '@/widgets/cta-section';
 import { Hero } from '@/widgets/hero';
@@ -33,12 +36,9 @@ export default async function HomePage({ params }: HomePageProps) {
             eyebrow={t('skillsEyebrow')}
             title={t('skillsTitle')}
             action={
-              <Link
-                href="/tech-stack"
-                className="text-small font-medium text-accent transition-opacity hover:opacity-80"
-              >
+              <UITextLink href="/tech-stack" dataName="all-skills">
                 {t('skillsAll')}
-              </Link>
+              </UITextLink>
             }
           />
           <div className="mt-8">
@@ -54,12 +54,9 @@ export default async function HomePage({ params }: HomePageProps) {
             title={t('projectsTitle')}
             description={t('projectsDescription')}
             action={
-              <Link
-                href="/projects"
-                className="text-small font-medium text-accent transition-opacity hover:opacity-80"
-              >
+              <UITextLink href="/projects" dataName="all-projects">
                 {t('projectsAll')}
-              </Link>
+              </UITextLink>
             }
           />
           <div className="mt-10">
@@ -67,19 +64,11 @@ export default async function HomePage({ params }: HomePageProps) {
             <div className="hidden min-[901px]:flex justify-center">
               <UIShowcase overlap={48} arc={8}>
                 {featured.map((project) => (
-                  <UICardProject
+                  <ProjectCard
                     key={project.slug}
-                    title={project.title}
+                    project={project}
                     summary={tProjects(`${project.slug}.summary`)}
-                    cover={project.cover}
-                    tags={project.stack}
-                    tagIcons={project.stack.map((tech) => (
-                      <Fragment key={tech}>{getTechIcon(tech)}</Fragment>
-                    ))}
-                    href={`/projects/${project.slug}`}
-                    year={project.year}
                     role={tProjects(`${project.slug}.role`)}
-                    priority={false}
                   />
                 ))}
               </UIShowcase>

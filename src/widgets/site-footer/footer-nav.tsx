@@ -1,23 +1,35 @@
 'use client';
 
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 import { useTranslations } from 'next-intl';
 
 import { NAV } from '@/shared/config';
-import { Link, usePathname } from '@/shared/i18n';
+import { usePathname } from '@/shared/i18n';
+import { UINavLink } from '@/shared/ui';
 
-const prefersReducedMotion = () =>
+const prefersReducedMotion = (): boolean =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
  * Навигация подвала. Client-компонент: клик по уже активному разделу не
- запускает навигацию (маршрут не меняется, scroll-to-top из провайдеров не
+ * запускает навигацию (маршрут не меняется, scroll-to-top из провайдеров не
  * сработает), поэтому прокручиваем наверх вручную — плавно.
  */
 export const FooterNav: FC = () => {
   const tNav = useTranslations('Nav');
   const pathname = usePathname();
+
+  const scrollToTopIfCurrent =
+    (isCurrent: boolean) => (event: MouseEvent<HTMLAnchorElement>) => {
+      if (!isCurrent) return;
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      });
+    };
 
   return (
     <ul className="mt-4 space-y-2">
@@ -26,22 +38,15 @@ export const FooterNav: FC = () => {
 
         return (
           <li key={item.href}>
-            <Link
+            <UINavLink
               href={item.href}
-              aria-current={isCurrent ? 'page' : undefined}
-              onClick={(e) => {
-                if (!isCurrent) return;
-                e.preventDefault();
-                window.scrollTo({
-                  top: 0,
-                  left: 0,
-                  behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-                });
-              }}
-              className="text-small text-muted-foreground transition-all duration-300 ease-out-expo hover:bg-linear-to-r hover:from-accent hover:via-amber-500 hover:to-orange-400 hover:bg-size-[200%_auto] hover:bg-clip-text hover:text-transparent hover:animate-rainbow-text"
+              variant="footer"
+              active={isCurrent}
+              onClick={scrollToTopIfCurrent(isCurrent)}
+              dataName={item.key}
             >
               {tNav(item.key)}
-            </Link>
+            </UINavLink>
           </li>
         );
       })}

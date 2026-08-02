@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import type { Locale } from '@/shared/i18n';
-import { UIContainer, UISection } from '@/shared/ui';
+import { buildBreadcrumbJsonLd, buildPageMetadata } from '@/shared/lib/seo';
+import { JsonLd, UIContainer, UISection } from '@/shared/ui';
 import { AboutIntro } from '@/widgets/about-intro';
 
 interface AboutPageProps {
@@ -16,18 +17,28 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale: locale as Locale, namespace: 'Meta' });
 
-  return {
+  return buildPageMetadata({
+    locale: locale as Locale,
+    href: '/about',
     title: t('aboutTitle'),
     description: t('aboutDescription'),
-  };
+  });
 }
 
 export default async function AboutPage({ params }: AboutPageProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  const typedLocale = locale as Locale;
+  setRequestLocale(typedLocale);
+  const tNav = await getTranslations('Nav');
 
   return (
     <UISection>
+      <JsonLd
+        data={buildBreadcrumbJsonLd(typedLocale, [
+          { name: tNav('home'), href: '/' },
+          { name: tNav('about'), href: '/about' },
+        ])}
+      />
       <UIContainer>
         <AboutIntro />
       </UIContainer>

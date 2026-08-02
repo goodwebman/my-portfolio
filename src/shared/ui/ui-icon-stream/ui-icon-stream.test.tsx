@@ -23,15 +23,18 @@ describe('UIIconStream', () => {
     expect(svgs.length).toBeGreaterThan(0);
   });
 
-  it('дублирует иконки для seamless loop', () => {
+  it('повторяет набор иконок целиком — в ленте нет «дыр»', () => {
+    const iconCount = 2;
     const { container } = render(
-      <UIIconStream
-        icons={[<LuCode key="1" />, <LuTerminal key="2" />]}
-      />,
+      <UIIconStream icons={[<LuCode key="1" />, <LuTerminal key="2" />]} />,
     );
-    // Каждая иконка продублирована → 2 × 2 = 4 svg
+
+    // Число повторов считается по реальной высоте контейнера, а в jsdom
+    // размеры нулевые. Проверяем инвариант, не зависящий от layout: лента
+    // всегда состоит из целых копий набора.
     const svgs = container.querySelectorAll('svg');
-    expect(svgs).toHaveLength(4);
+    expect(svgs.length).toBeGreaterThanOrEqual(iconCount);
+    expect(svgs.length % iconCount).toBe(0);
   });
 
   it('применяет пользовательский className', () => {
