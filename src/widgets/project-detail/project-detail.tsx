@@ -118,7 +118,7 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
       </header>
 
       <UIReveal className="mt-10">
-        <div className="relative aspect-screenshot overflow-hidden rounded-card border border-border bg-muted">
+        <div className="relative aspect-screenshot overflow-hidden rounded-card bg-muted shadow-[0_0_0_1px_var(--color-border)]">
           <Image
             src={project.cover}
             alt={project.title}

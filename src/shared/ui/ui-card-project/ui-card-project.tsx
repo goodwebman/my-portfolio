@@ -80,7 +80,7 @@ export const UICardProject: FC<IUICardProjectProps> = memo(
         <motion.article
           whileHover={shouldReduce ? undefined : { y: -6 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex h-full flex-col overflow-hidden rounded-card border border-border bg-card transition-colors group-hover:border-accent/40"
+          className="flex h-full flex-col overflow-hidden rounded-card bg-card shadow-[0_0_0_1px_var(--ring-color)] transition-shadow duration-300 [--ring-color:var(--color-border)] group-hover:[--ring-color:color-mix(in_oklab,var(--color-accent)_40%,transparent)]"
         >
           <div className="relative aspect-screenshot overflow-hidden bg-muted">
             <Image

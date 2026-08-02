@@ -56,7 +56,7 @@ export const ProjectGallery: FC<IProjectGalleryProps> = ({ images, title }) => {
             key={src}
             type="button"
             onClick={() => setActive(index)}
-            className="group relative aspect-screenshot overflow-hidden rounded-card border border-border bg-muted outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group relative aspect-screenshot overflow-hidden rounded-card bg-muted shadow-[0_0_0_1px_var(--color-border)] outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={t('openScreenshot', { index: index + 1 })}
           >
             <Image
@@ -107,7 +107,7 @@ export const ProjectGallery: FC<IProjectGalleryProps> = ({ images, title }) => {
             </button>
 
             <motion.div
-              className="relative aspect-screenshot max-h-[85dvh] w-full max-w-6xl overflow-hidden rounded-card border border-border bg-muted"
+              className="relative aspect-screenshot max-h-[85dvh] w-full max-w-6xl overflow-hidden rounded-card bg-muted shadow-[0_0_0_1px_var(--color-border)]"
               initial={shouldReduce ? false : { scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={shouldReduce ? { opacity: 0 } : { scale: 0.96, opacity: 0 }}
