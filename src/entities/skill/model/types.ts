@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 /** Категория навыка (для группировки на странице стека). */
-export type SkillCategory = 'frontend' | 'backend' | 'tools';
+export type SkillCategory = 'frontend' | 'tools' | 'ai';
 
 /** Навык/технология. */
 export interface Skill {
@@ -21,13 +21,13 @@ export interface Skill {
 /** Заголовки категорий для UI. */
 export const SKILL_CATEGORY_LABEL: Record<SkillCategory, string> = {
   frontend: 'Frontend',
-  backend: 'Backend',
-  tools: 'Tools & DevOps',
+  tools: 'Tools',
+  ai: 'AI',
 };
 
 /** Порядок вывода категорий. */
 export const SKILL_CATEGORY_ORDER: readonly SkillCategory[] = [
   'frontend',
-  'backend',
   'tools',
+  'ai',
 ];

@@ -8,14 +8,14 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 
 import '../globals.css';
 
-import { routing, type Locale } from '@/i18n/routing';
+import { routing, type Locale } from '@/shared/i18n';
 import { SITE } from '@/shared/config';
 import { THEME_STORAGE_KEY, type Theme } from '@/shared/theme';
 import { SceneBackground } from '@/shared/ui';
 import { SiteFooter } from '@/widgets/site-footer';
 import { SiteHeader } from '@/widgets/site-header';
 
-import { Providers } from './providers';
+import { Providers } from '../providers';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

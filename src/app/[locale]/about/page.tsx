@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import type { Locale } from '@/i18n/routing';
+import type { Locale } from '@/shared/i18n';
 import { UIContainer, UISection } from '@/shared/ui';
 import { AboutIntro } from '@/widgets/about-intro';
 

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { SKILL_CATEGORY_ORDER } from '@/entities/skill';
-import type { Locale } from '@/i18n/routing';
+import type { Locale } from '@/shared/i18n';
 import { UIContainer, UISection, UISectionHeading } from '@/shared/ui';
 import { SkillsGrid } from '@/widgets/skills-grid';
 

@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/shared/i18n';
 import { UIContainer } from '@/shared/ui';
-import { uiButtonClassNames } from '@/shared/ui/ui-button/button-styles';
+import { uiButtonClassNames } from '@/shared/ui/ui-button';
 
 /** 404 в пределах локали. */
 export default async function NotFound() {

@@ -6,7 +6,7 @@ import { memo } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
 
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/shared/i18n';
 
 import type { cnParams } from '@/shared/lib/cn';
 import { useCn } from '@/shared/lib/cn';
@@ -82,14 +82,14 @@ export const UICardProject: FC<IUICardProjectProps> = memo(
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="flex h-full flex-col overflow-hidden rounded-card border border-border bg-card transition-colors group-hover:border-accent/40"
         >
-          <div className="relative aspect-16/10 overflow-hidden bg-muted">
+          <div className="relative aspect-screenshot overflow-hidden bg-muted">
             <Image
               src={cover}
               alt={title}
               fill
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               priority={priority}
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-contain transition-transform duration-500 group-hover:scale-105"
             />
           </div>
 

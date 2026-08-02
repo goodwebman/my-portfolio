@@ -1,0 +1,230 @@
+{
+  "Meta": {
+    "role": "Frontend Developer",
+    "description": "Frontend developer with 3+ years of experience building modern web products — from design systems to complex SPAs.",
+    "keywords": "frontend, react, next.js, typescript, portfolio",
+    "aboutTitle": "About",
+    "aboutDescription": "Who I am, what I do, and the technologies I work with.",
+    "techStackTitle": "Tech Stack",
+    "techStackDescription": "Frontend technologies and tools I work with daily.",
+    "projectsTitle": "Projects",
+    "projectsDescription": "Case studies and projects: from idea to production.",
+    "contactTitle": "Contact",
+    "contactDescription": "Get in touch: email and social links.",
+    "projectNotFound": "Project not found"
+  },
+  "Site": {
+    "role": "Frontend Developer",
+    "tagline": "Building fast products with React, Next.js and TypeScript",
+    "shortBio": "Frontend developer with 3+ years of experience building products — from design systems to complex SPAs.",
+    "location": "Remote / Russia",
+    "bio": [
+      "For 3+ years I've been designing and building web products. My core expertise is React and Next.js, plus a healthy obsession with clean architecture, strict typing, and pixel-perfect UI.",
+      "I've spent an embarrassing amount of time nudging a box-shadow half a pixel to the left, and I regret nothing. If a button doesn't feel right on click, I will find out why — usually at 1am, alone, with devtools open.",
+      "Accessibility and performance matter to me as much as looks: a beautiful interface that breaks for a screen reader or chokes on a slow connection isn't finished, it's just a pretty screenshot. Good UI is when something complicated feels effortless.",
+      "I've shipped a realtime pizza-delivery tracker, argued with WebSockets that dropped mid-delivery, and built a video platform that had to survive real traffic — not the 'works on my localhost' kind. TypeScript has saved me from myself more times than I'd like to admit.",
+      "Off the clock I read changelogs the way other people read novels, hoard animation libraries I'll 'definitely use someday', and occasionally explain to non-developers why a website is not, in fact, 'just HTML'."
+    ]
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "techStack": "Stack",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "Header": {
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme"
+  },
+  "Footer": {
+    "sections": "Sections",
+    "contacts": "Contacts",
+    "footerNav": "Footer navigation",
+    "copyright": "© {year} {name}. All rights reserved.",
+    "builtWith": "Built with Next.js, Tailwind CSS and Motion."
+  },
+  "Hero": {
+    "ctaProjects": "View projects",
+    "ctaContact": "Get in touch"
+  },
+  "Home": {
+    "skillsEyebrow": "Stack",
+    "skillsTitle": "Technologies I work with",
+    "skillsAll": "All skills →",
+    "projectsEyebrow": "Work",
+    "projectsTitle": "Featured projects",
+    "projectsDescription": "A few case studies I'm proud of. The full list is on the projects page.",
+    "projectsAll": "All projects →",
+    "ctaTitle": "Let's talk about your project?",
+    "ctaDescription": "Open to interesting challenges, consulting, and long-term collaboration.",
+    "ctaContact": "Get in touch"
+  },
+  "About": {
+    "factExperience": "Experience",
+    "factLocation": "Location",
+    "factRole": "Role",
+    "factEmail": "Email",
+    "experienceValue": "3+ years",
+    "eyebrow": "Who I am",
+    "heading": "A bit about me",
+    "ctaProjects": "My projects",
+    "ctaContact": "Get in touch"
+  },
+  "TechStack": {
+    "eyebrow": "Technologies",
+    "title": "Technology stack",
+    "description": "The frontend tools I use in my work — from frameworks to dev tooling."
+  },
+  "Common": {
+    "close": "Close",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "Skills": {
+    "frontend": "Frontend",
+    "tools": "Tools",
+    "ai": "AI",
+    "docs": "Open documentation",
+    "usage": "Used by",
+    "description": {
+      "typescript": "A typed layer over JavaScript: catches errors before runtime, powers autocomplete and makes refactoring safe.",
+      "html5": "The standard markup language for the web — semantic structure, accessibility, and native browser APIs.",
+      "css3": "Stylesheets for the web: from layout (flexbox, grid) to animations and responsive design.",
+      "react": "A library for declarative component-based UI — the foundation of most modern SPAs and the base of the frontend stack.",
+      "nextjs": "A React framework with SSR/SSG, file-based routing and server components — for fast, SEO-friendly production apps.",
+      "javascript": "The language of the web — runs in the browser and on the server. The base the entire frontend toolchain stands on.",
+      "scss": "A CSS preprocessor with variables, nesting, mixins and functions — keeps stylesheets maintainable at scale.",
+      "tailwind": "A utility-first CSS framework — build UI right in the markup, no file-switching and no dead CSS.",
+      "redux": "Predictable state management for complex client state with minimal boilerplate and great dev tooling.",
+      "redux-toolkit": "The official, opinionated Redux toolset: simplified store setup, RTK Query, and reduced boilerplate.",
+      "mobx": "Reactive state management with observable values and automatic derivation tracking — minimal boilerplate.",
+      "react-hook-form": "Performant form library for React with uncontrolled inputs and schema-based validation.",
+      "zod": "A TypeScript-first schema validation library with precise type inference.",
+      "tanstack-query": "Async state management for server data: caching, deduplication, background refetching and pagination.",
+      "apollo": "A comprehensive state management library for GraphQL: queries, mutations, and a normalized cache.",
+      "graphql": "A query language for APIs — fetch exactly the data you need in a single request.",
+      "material-ui": "A comprehensive React component library implementing Material Design — pre-built UI blocks and theming.",
+      "shadcn": "A collection of beautifully designed, accessible React components built on Radix UI and Tailwind.",
+      "radix": "A headless UI component library — unstyled, accessible primitives for building custom design systems.",
+      "motion": "An animation library for React: declarative transitions, gestures and layout animations that respect prefers-reduced-motion.",
+      "tanstack-virtual": "A headless virtualizer for rendering large lists efficiently — only the visible rows are in the DOM.",
+      "react-router": "The standard routing library for React: nested routes, loaders, actions and client-side navigation.",
+      "git": "Version control — change history, branches and collaboration on code without the chaos.",
+      "prettier": "An opinionated code formatter — consistent style across the codebase, no more style discussions.",
+      "eslint": "A static analysis tool for finding and fixing problems in JavaScript and TypeScript code.",
+      "figma": "A collaborative design tool for UI/UX — vector editing, prototyping, and design systems in the browser.",
+      "capacitor": "A cross-platform native runtime for building mobile apps from web code — iOS, Android, and the web from one codebase.",
+      "react-native": "A framework for building native mobile apps using React — share business logic across platforms with native UI.",
+      "claude": "An AI assistant by Anthropic — helpful, honest, and harmless. Great for code review, reasoning, and technical writing.",
+      "chatgpt": "A conversational AI by OpenAI — assists with coding, content generation, brainstorming, and problem-solving.",
+      "grok": "An AI assistant by xAI — real-time knowledge, code generation, and technical problem-solving with a direct style."
+    }
+  },
+  "ProjectsPage": {
+    "eyebrow": "Work",
+    "title": "Projects",
+    "description": "Case studies I've worked on: from idea to production."
+  },
+  "ProjectDetail": {
+    "allProjects": "All projects",
+    "openProject": "Open project",
+    "sourceCode": "Source code",
+    "stack": "Stack",
+    "gallery": "Gallery"
+  },
+  "ProjectGallery": {
+    "openScreenshot": "Open screenshot {index}",
+    "close": "Close",
+    "prev": "Previous",
+    "next": "Next",
+    "screenshotAlt": "{title} — screenshot {index}",
+    "galleryAria": "{title} — gallery"
+  },
+  "Contact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "description": "Open to interesting challenges and collaboration. Reach out by email or social media — I reply fast.",
+    "writeTo": "Email {email}"
+  },
+  "Socials": {
+    "github": "GitHub",
+    "telegram": "Telegram",
+    "email": "Email"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "Looks like this page doesn't exist or was moved. Check the URL or head back home.",
+    "home": "Back home"
+  },
+  "Projects": {
+    "zuko-messenger": {
+      "role": "Fullstack",
+      "summary": "A realtime social network and messenger: feed, direct messages, presence, typing indicators and read receipts.",
+      "description": [
+        "A Telegram-like mini social network: a post feed with likes, comments, reposts and share links, plus one-to-one chats that update live — typing indicators, presence and read receipts all travel over WebSocket.",
+        "An npm-workspaces monorepo: a Next.js 15 App Router client structured with Feature-Sliced Design, a Fastify 5 + Socket.IO backend, and shared packages for the Prisma schema, the Zod contracts and a 42-component UI kit.",
+        "State is split on purpose: TanStack Query owns server data with optimistic mutations and cache invalidation, Redux Toolkit owns the realtime layer — session, presence, typing, unread counters. Auth is JWT with access/refresh rotation in httpOnly cookies."
+      ]
+    },
+    "siege-castle-chess": {
+      "role": "Fullstack",
+      "summary": "Realtime chess for two over WebSocket with an authoritative server: server-side clocks, reconnect, dark-fantasy board.",
+      "description": [
+        "Two players open a link and play chess online: server-side clocks, move history, draw offers and resignation — all in a dark-fantasy skin.",
+        "The core decision is an authoritative server. The client only sends the intent of a move (from → to, plus promotion when needed); chess.js on the server validates legality, detects the outcome and runs the clock. Client state is a reflection of what the server confirmed, with a short optimistic render and a rollback on rejection.",
+        "A monorepo of web, server and a shared Zod protocol over Socket.IO: FEN as the single source of truth for a game, idempotent join to survive StrictMode and races, reconnect with a technical loss on timeout, and Prisma + PostgreSQL for persistence."
+      ]
+    },
+    "where-is-pizza": {
+      "role": "Fullstack",
+      "summary": "A pizza delivery storefront: item configurator, cart, checkout, order tracking and an account area.",
+      "description": [
+        "A pizza-delivery store: a catalog across pizza, sushi, desserts, drinks, sauces, snacks and combos, a per-item configurator (dough type, size, extra toppings with live price recalculation), a slide-out cart and an upsell block before checkout.",
+        "Checkout covers delivery or pickup, address details, timing, payment method and change; after ordering it issues a number and a tracking page, while the account area keeps order history with statuses plus profile and password settings.",
+        "A monorepo: a Next.js 16 client and a separate Express + Prisma server over SQLite. Redux Toolkit with redux-persist holds the cart, TanStack Query holds server data, react-hook-form with Zod handles the forms, and auth is JWT with bcrypt."
+      ]
+    },
+    "frontend-mechanisms": {
+      "role": "Frontend",
+      "summary": "A catalog of reusable frontend mechanisms: 18 sections, 194 topics, working code and the limits of every pattern.",
+      "description": [
+        "A reference catalog of frontend mechanisms — React patterns, hook subtleties, state managers, routing and RBAC, middleware, cookies and auth, event sourcing, url-query — 18 sections and 194 topics collected from real production work.",
+        "Deliberately not a tutorial: every mechanism ships with the working source next to it, the boundary where it still applies, and what breaks in production once you push past that boundary.",
+        "A React SPA on Vite with hash routing and CSS Modules: full-text search across titles, prose and code behind a Ctrl+K palette, a light/dark theme applied before the first paint, and local reading progress with per-section checklists."
+      ]
+    },
+    "realtime-transports": {
+      "role": "Fullstack",
+      "summary": "One background job, three transports — polling, long polling and SSE — side by side with live metrics.",
+      "description": [
+        "The same background job and the same event stream delivered to the browser three different ways. Switch the transport and watch the counters: HTTP requests sent, bytes over the wire, p50/p95 delay between an event happening on the server and being painted, and how many events the transport dropped.",
+        "The point isn't the dashboard but the metrics panel next to it — the difference between transports shows up in numbers rather than theory. A toggle fails the job mid-run so error handling can be compared too.",
+        "A monorepo on Vercel Functions with Neon over HTTP: a framework-free server core (deterministic job schedule, snapshot folding, ETag, SSE serialization), the three transports as web handlers over Request/Response, and a React 19 + Vite client on Feature-Sliced Design. 166 tests across server and web."
+      ]
+    },
+    "ai-fairy-tale": {
+      "role": "Fullstack",
+      "summary": "Type one sentence — get an illustrated fairy-tale book with 3D page flips. Story and art both generated.",
+      "description": [
+        "Write what the tale should be about and the app generates a coherent 6–8 scene story with a kind ending, draws an illustration for every scene, and binds it all into a book spread with 3D page turns, arrow controls and swipe on mobile.",
+        "Text and image providers are pluggable through env: GigaChat or YandexGPT for prose, Cloudflare Workers AI, Pollinations or Kandinsky for art. Generation is split into two endpoints — the story first, then illustrations in parallel with per-provider concurrency, so a multi-megabyte base64 payload never travels in a single response.",
+        "React and Redux Toolkit on Vite, an Express proxy that keeps the provider keys off the client, and IndexedDB for finished books so the 'My tales' shelf survives a reload."
+      ]
+    },
+    "ui-kit": {
+      "role": "Frontend",
+      "summary": "A design-system library of 42 React components with Storybook docs, a11y checks and in-browser tests.",
+      "description": [
+        "A standalone component library: forms (input, phone input with country masks, OTP, select, radio, rating), navigation (tabs, accordion, breadcrumbs, pagination), overlays (dialog, popover, tooltip, toast), lists (carousel, rail, virtual grid and list) and effects (marquee, showcase, tilt and spotlight cards).",
+        "Built as a publishable package: a Vite library build with type declarations, CVA plus clsx and tailwind-merge for variants, Tailwind v4 design tokens, and an icon set generated from SVG by a script with a --check mode for CI.",
+        "Storybook is the documentation and the test bench at once — an a11y addon, theme switching, and Vitest running both unit tests and stories in a real browser through Playwright."
+      ]
+    }
+  }
+}

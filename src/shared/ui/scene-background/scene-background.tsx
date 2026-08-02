@@ -23,9 +23,9 @@ const PALETTE: Record<Theme, IScenePalette> = {
     grain: 0.05,
   },
   light: {
-    colorA: [0.968, 0.955, 1.0], // #f7f4ff
-    colorB: [0.925, 0.906, 0.968], // #ece7f7
-    accent: [0.486, 0.227, 0.929], // #7c3aed
+    colorA: [0.965, 0.949, 0.925], // #f6f2ec — тёплый песок
+    colorB: [0.925, 0.902, 0.871], // #ece6de — чуть темнее песок
+    accent: [0.553, 0.279, 0.145], // #c4906a — приглушённая терракота
     grain: 0.035,
   },
 };
@@ -50,6 +50,7 @@ uniform vec3 uAccent;
 uniform float uGrain;
 uniform float uReduced;   // 1.0 — prefers-reduced-motion
 uniform float uRainStrength; // 1.0 — rain on (dark theme)
+uniform float uMotesStrength; // 1.0 — dust motes on (light theme)
 
 // --- Ashima 2D simplex noise ---
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -96,8 +97,9 @@ float rainParticle(vec2 uv, float time, float layer, vec2 mouseUV) {
   vec2 cell = floor(g);
   vec2 f = fract(g) - 0.5;
 
-  // Mouse position in grid space (для расчёта отталкивания)
-  vec2 mouseGrid = mouseUV * vec2(gridW, gridH) / layerScale - vec2(0.0, time * speed);
+  // Курсор в той же сетке, что и частицы — сдвиг ОДИНАКОВЫЙ (не обратный),
+  // иначе зона отталкивания уползает от курсора со временем.
+  vec2 mouseGrid = mouseUV * vec2(gridW, gridH) / layerScale + vec2(0.0, time * speed);
 
   float body = 0.0;
 
@@ -144,6 +146,72 @@ float rainParticle(vec2 uv, float time, float layer, vec2 mouseUV) {
   }
 
   return clamp(body, 0.0, 0.5);
+}
+
+// --- Dust motes (мелкая пыль, сдуваемая ветром вбок, react to cursor, light theme only) ---
+float dustParticle(vec2 uv, float time, float layer, vec2 mouseUV) {
+  float gridW = 34.0 + layer * 6.0;
+  float gridH = 36.0 + layer * 6.0;
+  float layerScale = 1.0 + layer * 1.2;
+  float windSpeed = (0.6 + layer * 0.3) * 0.15;
+
+  // ветер несёт частицы по X; лёгкое вертикальное "трепыхание" порывами
+  float gust = sin(time * 0.7 + layer * 4.7) * 0.18 + sin(time * 1.9 + layer * 1.3) * 0.06;
+
+  vec2 g = uv * vec2(gridW, gridH) / layerScale + vec2(-time * windSpeed, 0.0);
+  g.y += gust;
+  vec2 cell = floor(g);
+  vec2 f = fract(g) - 0.5;
+
+  // Тот же сдвиг, что у сетки частиц выше (ветер по X + порыв по Y).
+  vec2 mouseGrid = mouseUV * vec2(gridW, gridH) / layerScale
+    + vec2(-time * windSpeed, 0.0);
+  mouseGrid.y += gust;
+
+  float body = 0.0;
+
+  for (int ix = 0; ix < 3; ix++) {
+    for (int iy = 0; iy < 3; iy++) {
+      vec2 n = vec2(float(ix) - 1.0, float(iy) - 1.0);
+      vec2 nc = cell + n;
+      vec2 nf = f - n;
+
+      float seed = dot(nc, vec2(151.7, 91.3)) + layer * 57.0;
+      float r1 = fract(sin(seed) * 43758.5453);
+      float r2 = fract(sin(seed * 1.9 + 20.0) * 43758.5453);
+
+      float density = 0.22;
+      if (r2 < density) {
+        float xPos = (r1 - 0.5) * 0.65;
+        float yPos = (r2 / density - 0.5) * 0.65;
+
+        // Mouse repulsion — та же механика, что и у дождя
+        vec2 particleGrid = nc + vec2(xPos, yPos);
+        vec2 diff = particleGrid - mouseGrid;
+        float dist = length(diff);
+        float repelX = 0.0, repelY = 0.0;
+        if (dist < 2.4 && dist > 0.001) {
+          float force = (1.0 - dist / 2.4) * 2.0;
+          repelX = diff.x / dist * force;
+          repelY = diff.y / dist * force;
+        }
+
+        float dx = nf.x - xPos - repelX;
+        float dy = nf.y - yPos - repelY;
+
+        // мелкая частица пыли, а не крупное боке — но с чётким ярким ядром
+        float size = (0.024 + 0.014 * r1) / layerScale;
+        float d2 = dx * dx + dy * dy;
+        float particle = exp(-d2 / (size * size * 1.8));
+
+        float pulse = 0.8 + 0.2 * sin(time * 2.2 + r1 * 60.0);
+
+        body += particle * (0.4 + 0.4 * r1) * pulse;
+      }
+    }
+  }
+
+  return clamp(body, 0.0, 0.6);
 }
 
 void main() {
@@ -194,6 +262,18 @@ void main() {
   // Свечение частиц — мягкое additive
   col += vec3(0.5, 0.55, 0.85) * rainIntensity;
 
+  // Dust motes — 3 слоя, только светлая тема, off при reduced motion
+  float dustIntensity = 0.0;
+  if (uMotesStrength > 0.5 && uReduced < 0.5) {
+    vec2 mouseUV = uMouse / uResolution;
+    dustIntensity += dustParticle(uv, uTime, 0.0, mouseUV);
+    dustIntensity += dustParticle(uv, uTime, 1.0, mouseUV);
+    dustIntensity += dustParticle(uv, uTime, 2.0, mouseUV);
+    dustIntensity = clamp(dustIntensity, 0.0, 0.5);
+  }
+  // Мелкие яркие искры пыли в тон акценту — заметные, но не крупные пятна
+  col += uAccent * dustIntensity * 0.6 + vec3(1.0) * dustIntensity * 0.15;
+
   gl_FragColor = vec4(col, 1.0);
 }
 `;
@@ -221,6 +301,10 @@ const compile = (
 /**
  * Полноэкранный шейдерный фон: матовая процедурная текстура + film grain +
  * spotlight, инерционно следящий за курсором, с displacement noise вокруг него.
+ * Плюс частицы, разные по теме: тёмная — падающий звёздный дождь, светлая —
+ * мелкая пыль, сдуваемая ветром вбок (порывы + лёгкое трепыхание по Y). Обе
+ * реагируют на курсор одинаково (мягкое отталкивание), чтобы ощущаться частью
+ * одной системы, а не по-разному ведущими себя эффектами.
  *
  * Производительность: один fullscreen-треугольник, весь эффект — на GPU. rAF
  * ставит только target-координаты (mousemove — passive, без работы в handler);
@@ -285,6 +369,7 @@ export const SceneBackground: FC = () => {
       grain: gl.getUniformLocation(program, 'uGrain'),
       reduced: gl.getUniformLocation(program, 'uReduced'),
       rainStrength: gl.getUniformLocation(program, 'uRainStrength'),
+      motesStrength: gl.getUniformLocation(program, 'uMotesStrength'),
     };
 
     const reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -358,7 +443,9 @@ export const SceneBackground: FC = () => {
       gl.uniform3fv(u.accent, p.accent);
       gl.uniform1f(u.grain, p.grain);
       gl.uniform1f(u.reduced, reduced ? 1 : 0);
-      gl.uniform1f(u.rainStrength, p.colorA[0] < 0.5 ? 1 : 0);
+      const isDark = p.colorA[0] < 0.5;
+      gl.uniform1f(u.rainStrength, isDark ? 1 : 0);
+      gl.uniform1f(u.motesStrength, isDark ? 0 : 1);
 
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };

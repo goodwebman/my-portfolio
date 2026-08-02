@@ -3,12 +3,12 @@ import type { FC } from 'react';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/shared/i18n';
 import type { Project } from '@/entities/project';
 import { getTechIcon } from '@/entities/project';
 import { Show } from '@/shared/ui/show';
 import { UIReveal, UITag } from '@/shared/ui';
-import { uiButtonClassNames } from '@/shared/ui/ui-button/button-styles';
+import { uiButtonClassNames } from '@/shared/ui/ui-button';
 
 import { ProjectGallery } from './project-gallery';
 
@@ -118,14 +118,14 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
       </header>
 
       <UIReveal className="mt-10">
-        <div className="relative aspect-[16/9] overflow-hidden rounded-card border border-border bg-muted">
+        <div className="relative aspect-screenshot overflow-hidden rounded-card border border-border bg-muted">
           <Image
             src={project.cover}
             alt={project.title}
             fill
             sizes="(min-width: 1024px) 900px, 100vw"
             priority
-            className="object-cover"
+            className="object-contain"
           />
         </div>
       </UIReveal>

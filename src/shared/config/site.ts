@@ -4,7 +4,9 @@
  */
 export const SITE = {
   name: 'Данил Шебалов',
-  email: 'goodwebman72@gmail.com',
+  email: 'super0kesha@mail.ru',
+  github: 'https://github.com/goodwebman',
+  telegram: 'https://t.me/danya_js',
   avatar: '/avatar.svg',
   url: 'https://example.com',
 } as const;

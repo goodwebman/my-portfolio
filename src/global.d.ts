@@ -1,4 +1,4 @@
-import type { routing } from '@/i18n/routing';
+import type { routing } from '@/shared/i18n';
 
 // Только Locale-типизация. Строгую типизацию ключей (Messages) не включаем:
 // контент проектов читается динамическими ключами (`${slug}.summary`).

@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { LuMenu, LuX } from 'react-icons/lu';
 
-import { Link, usePathname } from '@/i18n/navigation';
+import { Link, usePathname } from '@/shared/i18n';
 import { NAV, SITE } from '@/shared/config';
 import { cn } from '@/shared/lib/cn';
 import { useMediaQuery } from '@/shared/lib/hooks';
@@ -53,7 +53,7 @@ export const SiteHeader: FC = () => {
   }, []);
 
   return (
-    <header className="pointer-events-none sticky top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4 lg:px-8">
+    <header className="pointer-events-none sticky top-0 z-999999999 px-4 pt-3 sm:px-6 sm:pt-4 lg:px-8">
       <div className="relative mx-auto max-w-6xl">
         <motion.div
           initial={shouldReduce ? false : { y: -24, opacity: 0 }}
@@ -110,14 +110,15 @@ export const SiteHeader: FC = () => {
           </nav>
 
           <div className="flex items-center gap-1.5">
-            <LanguageSwitcher />
+            <LanguageSwitcher className="max-md:bg-transparent max-md:border-transparent" />
             <UIThemeToggle
               labelToDark={t('themeToDark')}
               labelToLight={t('themeToLight')}
+              className="max-md:bg-transparent max-md:border-transparent"
             />
             <button
               type="button"
-              className="grid size-10 place-items-center rounded-full border border-border bg-card/60 text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring md:hidden"
+              className="grid size-10 place-items-center rounded-full bg-transparent text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring md:hidden"
               aria-label={open ? t('closeMenu') : t('openMenu')}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}

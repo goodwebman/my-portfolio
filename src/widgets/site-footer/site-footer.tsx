@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/shared/i18n';
 import { NAV, SITE } from '@/shared/config';
 import { UIContainer } from '@/shared/ui';
 
@@ -14,7 +14,7 @@ export async function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-border">
+    <footer className="mt-auto border-t border-border bg-muted/30">
       <UIContainer>
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
@@ -30,7 +30,7 @@ export async function SiteFooter() {
           </div>
 
           <nav aria-label={t('footerNav')}>
-            <h2 className="text-caption font-semibold uppercase tracking-wider text-muted-foreground">
+            <h2 className="text-caption font-semibold uppercase tracking-wider text-accent">
               {t('sections')}
             </h2>
             <ul className="mt-4 space-y-2">
@@ -38,7 +38,7 @@ export async function SiteFooter() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-small text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-small text-muted-foreground transition-all duration-300 ease-out-expo hover:bg-linear-to-r hover:from-accent hover:via-amber-500 hover:to-orange-400 hover:bg-size-[200%_auto] hover:bg-clip-text hover:text-transparent hover:animate-rainbow-text"
                   >
                     {tNav(item.key)}
                   </Link>
@@ -48,7 +48,7 @@ export async function SiteFooter() {
           </nav>
 
           <div>
-            <h2 className="text-caption font-semibold uppercase tracking-wider text-muted-foreground">
+            <h2 className="text-caption font-semibold uppercase tracking-wider text-accent">
               {t('contacts')}
             </h2>
             <FooterSocials />

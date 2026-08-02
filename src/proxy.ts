@@ -1,6 +1,6 @@
 import createMiddleware from 'next-intl/middleware';
 
-import { routing } from './i18n/routing';
+import { routing } from '@/shared/i18n';
 
 /** Проставляет/редиректит локаль. В Next.js 16 middleware-энтри — `proxy.ts`. */
 export default createMiddleware(routing);

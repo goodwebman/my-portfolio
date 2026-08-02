@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import type { Locale } from '@/i18n/routing';
+import type { Locale } from '@/shared/i18n';
 import { SITE } from '@/shared/config';
 import { UIContainer, UISection, UISectionHeading } from '@/shared/ui';
-import { uiButtonClassNames } from '@/shared/ui/ui-button/button-styles';
+import { uiButtonClassNames } from '@/shared/ui/ui-button';
 import { ContactLinks } from '@/widgets/contact-links';
 
 interface ContactPageProps {

@@ -9,7 +9,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 
 // Локале-aware Link завязан на next-intl → next/navigation (недоступен в jsdom).
 // Юнит-тесту карточки i18n не нужен — подменяем Link простым якорем.
-vi.mock('@/i18n/navigation', () => ({
+vi.mock('@/shared/i18n', () => ({
   Link: ({ href, children, ...rest }: ComponentProps<'a'> & { href: string }) => (
     <a href={String(href)} {...rest}>
       {children}

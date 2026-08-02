@@ -7,17 +7,17 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --muted: #f4f4f5;
-  --muted-foreground: #6b7280;
-  --border: #e5e7eb;
-  --ring: #6d5efc;
-  --accent: #6d5efc;
-  --accent-foreground: #ffffff;
-  --accent-muted: #ede9fe;
+  --background: #f6f2ec;
+  --foreground: #2c2823;
+  --card: #fbf8f4;
+  --card-foreground: #2c2823;
+  --muted: #ece6de;
+  --muted-foreground: #898076;
+  --border: #dbd3c9;
+  --ring: #c4906a;
+  --accent: #c4906a;
+  --accent-foreground: #fbf8f4;
+  --accent-muted: #efe5db;
 }
 
 [data-theme="dark"] {
@@ -71,6 +71,16 @@
   --radius-card: 1.25rem;
   --radius-pill: 9999px;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /**
+   * Пропорции скриншотов проектов (1280×608). Совпадает с исходниками, поэтому
+   * обложки и галерея показываются целиком — вместе с `object-contain` кадр
+   * никогда не подрезается.
+   */
+  --aspect-screenshot: 1280 / 608;
+
+  --animate-rainbow-text: rainbow-text 3s linear infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
 }
 
 @layer base {
@@ -86,6 +96,19 @@
     background-color: var(--accent);
     color: var(--accent-foreground);
   }
+}
+
+/*
+ * Tailwind v4 убрал `cursor: pointer` у кнопок из Preflight — браузерный
+ * user-agent `button { cursor: default }` остаётся. Правило обязано жить ВНЕ
+ * `@layer`: в каскаде v4 author-правило в низкоприоритетном слое (`base`)
+ * проигрывает UA-стилю, а unlayered — побеждает (проверено через CDP).
+ * `:not(:disabled)` оставляет отключённым кнопкам их курсор.
+ */
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+}
 
   @media (prefers-reduced-motion: no-preference) {
     html {
@@ -93,7 +116,6 @@
 
     }
   }
-}
 
 /* Стартовые (скрытые) состояния для GSAP-ревилов — только когда анимации
    разрешены. При reduced-motion контент виден сразу (JS-ревил пропускается),
@@ -107,4 +129,15 @@
     opacity: 0;
     transform: translateY(24px);
   }
+}
+
+/* --- Анимации --- */
+@keyframes rainbow-text {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }

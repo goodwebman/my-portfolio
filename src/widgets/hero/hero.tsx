@@ -8,7 +8,7 @@ import { useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { LuArrowRight } from 'react-icons/lu';
 
-import { Link } from '@/i18n/navigation';
+import { Link } from '@/shared/i18n';
 import { SITE } from '@/shared/config';
 import { registerGsap } from '@/shared/lib/gsap';
 import { UIAvatar, UIContainer, uiButtonClassNames } from '@/shared/ui';
@@ -59,7 +59,7 @@ export const Hero: FC = () => {
       {/* декоративное свечение */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 size-[520px] -translate-x-1/2 rounded-full bg-accent/20 blur-[120px]"
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 size-130 -translate-x-1/2 rounded-full bg-accent/20 blur-[120px]"
       />
       <UIContainer>
         <div className="grid items-center gap-12 py-20 sm:py-28 lg:grid-cols-[1.4fr_1fr] lg:py-32">
@@ -76,7 +76,7 @@ export const Hero: FC = () => {
               {headingWords.map((word, index) => (
                 <span
                   key={`${word}-${index}`}
-                  className="mr-[0.22em] inline-block overflow-hidden pb-[0.12em] [margin-bottom:-0.12em]"
+                  className="mr-[0.22em] inline-block overflow-hidden pb-[0.12em] mb-[-0.12em]"
                 >
                   <span data-gsap="word" className="inline-block will-change-transform">
                     {word}

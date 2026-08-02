@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getProjectBySlug, PROJECTS } from '@/entities/project';
-import type { Locale } from '@/i18n/routing';
+import type { Locale } from '@/shared/i18n';
 import { UIContainer, UISection } from '@/shared/ui';
 import { ProjectDetail } from '@/widgets/project-detail';
 

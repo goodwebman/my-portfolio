@@ -1,14 +1,19 @@
 import type { ReactNode } from 'react';
 
-import { LuBox } from 'react-icons/lu';
+import { LuBox, LuDatabase, LuRadioTower } from 'react-icons/lu';
 import {
   SiApollographql,
+  SiCssmodules,
   SiExpo,
   SiExpress,
+  SiFastify,
   SiFramer,
   SiGreensock,
+  SiMobx,
   SiMui,
+  SiNeon,
   SiNextdotjs,
+  SiPostgresql,
   SiPrisma,
   SiRadixui,
   SiReact,
@@ -17,9 +22,13 @@ import {
   SiReactrouter,
   SiRedux,
   SiSass,
+  SiSocketdotio,
+  SiStorybook,
   SiTailwindcss,
   SiTypescript,
+  SiVercel,
   SiVite,
+  SiVitest,
   SiZod,
 } from 'react-icons/si';
 
@@ -45,6 +54,17 @@ const TECH_ICON: Record<string, { readonly icon: ReactNode; readonly color?: str
   MUI: { icon: <SiMui />, color: '#007FFF' },
   'Radix UI': { icon: <SiRadixui /> },
   'Framer Motion': { icon: <SiFramer /> },
+  'Socket.IO': { icon: <SiSocketdotio /> },
+  Fastify: { icon: <SiFastify /> },
+  MobX: { icon: <SiMobx />, color: '#FF9955' },
+  PostgreSQL: { icon: <SiPostgresql />, color: '#4169E1' },
+  Storybook: { icon: <SiStorybook />, color: '#FF4785' },
+  Vitest: { icon: <SiVitest />, color: '#6E9F18' },
+  Neon: { icon: <SiNeon />, color: '#00E599' },
+  'Vercel Functions': { icon: <SiVercel /> },
+  'CSS Modules': { icon: <SiCssmodules /> },
+  SSE: { icon: <LuRadioTower /> },
+  IndexedDB: { icon: <LuDatabase /> },
 };
 
 /** Иконка тега стека; для брендов без готовой иконки — нейтральный фолбэк. */

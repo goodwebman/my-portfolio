@@ -45,8 +45,8 @@ export const uiButtonClassNames = ({
         : 'bg-foreground text-background hover:opacity-90'),
     variant === 'outline' &&
       (disabled
-        ? 'border border-border text-muted-foreground'
-        : 'border border-border text-foreground hover:bg-muted'),
+        ? 'border border-border bg-muted/30 text-muted-foreground'
+        : 'border border-border bg-muted/40 text-foreground hover:bg-muted'),
     disabled && 'cursor-not-allowed',
     loading && !disabled && 'cursor-default',
   );

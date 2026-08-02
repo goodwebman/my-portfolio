@@ -56,7 +56,7 @@ export const ProjectGallery: FC<IProjectGalleryProps> = ({ images, title }) => {
             key={src}
             type="button"
             onClick={() => setActive(index)}
-            className="group relative aspect-[16/10] overflow-hidden rounded-card border border-border bg-muted outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group relative aspect-screenshot overflow-hidden rounded-card border border-border bg-muted outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={t('openScreenshot', { index: index + 1 })}
           >
             <Image
@@ -64,7 +64,7 @@ export const ProjectGallery: FC<IProjectGalleryProps> = ({ images, title }) => {
               alt={t('screenshotAlt', { title, index: index + 1 })}
               fill
               sizes="(min-width: 640px) 33vw, 50vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-contain transition-transform duration-500 group-hover:scale-105"
             />
           </button>
         ))}
@@ -107,7 +107,7 @@ export const ProjectGallery: FC<IProjectGalleryProps> = ({ images, title }) => {
             </button>
 
             <motion.div
-              className="relative aspect-[16/10] w-full max-w-5xl overflow-hidden rounded-card border border-border bg-muted"
+              className="relative aspect-screenshot max-h-[85dvh] w-full max-w-6xl overflow-hidden rounded-card border border-border bg-muted"
               initial={shouldReduce ? false : { scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={shouldReduce ? { opacity: 0 } : { scale: 0.96, opacity: 0 }}
@@ -119,7 +119,7 @@ export const ProjectGallery: FC<IProjectGalleryProps> = ({ images, title }) => {
                 alt={t('screenshotAlt', { title, index: active + 1 })}
                 fill
                 sizes="90vw"
-                className="object-cover"
+                className="object-contain"
               />
             </motion.div>
 
