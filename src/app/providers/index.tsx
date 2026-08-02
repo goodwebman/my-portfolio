@@ -2,6 +2,7 @@
 
 import type { FC, ReactNode } from 'react';
 
+import { ScrollToTop } from '@/shared/lib/scroll-to-top';
 import { ThemeProvider } from '@/shared/theme';
 import type { Theme } from '@/shared/theme';
 
@@ -12,9 +13,12 @@ export interface IProvidersProps {
   readonly children: ReactNode;
 }
 
-/** Композиция клиентских провайдеров: тема + motion-конфиг. */
+/** Композиция клиентских провайдеров: тема + motion-конфиг + scroll-to-top. */
 export const Providers: FC<IProvidersProps> = ({ initialTheme, children }) => (
   <ThemeProvider initialTheme={initialTheme}>
-    <MotionProvider>{children}</MotionProvider>
+    <MotionProvider>
+      {children}
+      <ScrollToTop />
+    </MotionProvider>
   </ThemeProvider>
 );

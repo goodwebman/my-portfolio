@@ -118,10 +118,10 @@ export const Hero: FC = () => {
                 src={SITE.avatar}
                 alt={SITE.name}
                 size="L"
-                ring
+                halo
                 glow
                 priority
-                className="size-44 sm:size-52 lg:size-60"
+                className="size-60 sm:size-72 lg:size-96"
               />
             </div>
           </div>

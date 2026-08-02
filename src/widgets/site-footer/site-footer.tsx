@@ -1,15 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 
 import { Link } from '@/shared/i18n';
-import { NAV, SITE } from '@/shared/config';
+import { SITE } from '@/shared/config';
 import { UIContainer } from '@/shared/ui';
 
+import { FooterNav } from './footer-nav';
 import { FooterSocials } from './footer-socials';
 
 /** Подвал сайта: бренд, навигация, соц-ссылки, копирайт. Server component. */
 export async function SiteFooter() {
   const t = await getTranslations('Footer');
-  const tNav = await getTranslations('Nav');
   const tSite = await getTranslations('Site');
   const year = new Date().getFullYear();
 
@@ -33,18 +33,7 @@ export async function SiteFooter() {
             <h2 className="text-caption font-semibold uppercase tracking-wider text-accent">
               {t('sections')}
             </h2>
-            <ul className="mt-4 space-y-2">
-              {NAV.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-small text-muted-foreground transition-all duration-300 ease-out-expo hover:bg-linear-to-r hover:from-accent hover:via-amber-500 hover:to-orange-400 hover:bg-size-[200%_auto] hover:bg-clip-text hover:text-transparent hover:animate-rainbow-text"
-                  >
-                    {tNav(item.key)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <FooterNav />
           </nav>
 
           <div>

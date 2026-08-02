@@ -7,6 +7,6 @@ export const SITE = {
   email: 'super0kesha@mail.ru',
   github: 'https://github.com/goodwebman',
   telegram: 'https://t.me/danya_js',
-  avatar: '/avatar.svg',
+  avatar: '/person.png',
   url: 'https://example.com',
 } as const;

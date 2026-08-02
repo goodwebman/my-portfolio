@@ -4,7 +4,9 @@ import { UIAvatar } from './ui-avatar';
 
 /**
  * `UIAvatar` — круглое изображение (next/image) с опциональной акцентной
- * обводкой (`ring`) и мягким свечением (`glow`). Размеры S / M / L.
+ * обводкой (`ring`), вращающимся градиентным кольцом (`halo`), мягким
+ * свечением (`glow`) и отдельной картинкой для тёмной темы (`srcDark`).
+ * Размеры S / M / L.
  */
 const meta = {
   component: UIAvatar,
@@ -14,7 +16,9 @@ const meta = {
     src: '/avatar.svg',
     alt: 'Аватар',
     size: 'M',
+    fit: 'cover',
     ring: false,
+    halo: false,
     glow: false,
   },
   argTypes: {
@@ -22,6 +26,11 @@ const meta = {
       control: 'inline-radio',
       options: ['S', 'M', 'L'],
     },
+    fit: {
+      control: 'inline-radio',
+      options: ['cover', 'contain'],
+    },
+    halo: { control: 'boolean' },
   },
 } satisfies Meta<typeof UIAvatar>;
 
@@ -51,4 +60,14 @@ export const Glow: Story = {
 
 export const RingGlow: Story = {
   args: { size: 'L', ring: true, glow: true },
+};
+
+/** Вращающееся градиентное кольцо + свечение. */
+export const Halo: Story = {
+  args: { src: '/avatar.svg', size: 'L', halo: true, glow: true },
+};
+
+/** Вырезанное фото (PNG с альфой): сливается с фоном страницы через прозрачные участки. */
+export const Natural: Story = {
+  args: { src: '/person.png', size: 'L', glow: true, className: 'size-52' },
 };

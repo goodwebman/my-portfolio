@@ -32,7 +32,7 @@ export async function AboutIntro() {
             alt={SITE.name}
             size="L"
             glow
-            className="size-40"
+            className="size-52"
           />
           <div>
             <AboutWordReveal
