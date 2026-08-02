@@ -116,6 +116,7 @@ export const Hero: FC = () => {
             <div ref={avatarRef} className="will-change-transform">
               <UIAvatar
                 src={SITE.avatar}
+                hoverSrc={SITE.avatarHover}
                 alt={SITE.name}
                 size="L"
                 halo

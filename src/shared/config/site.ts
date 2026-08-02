@@ -8,5 +8,6 @@ export const SITE = {
   github: 'https://github.com/goodwebman',
   telegram: 'https://t.me/danya_js',
   avatar: '/person.png',
+  avatarHover: '/person_hover.png',
   url: 'https://example.com',
 } as const;

@@ -29,6 +29,7 @@ export async function AboutIntro() {
         <div className="flex flex-col items-start gap-6">
           <UIAvatar
             src={SITE.avatar}
+            hoverSrc={SITE.avatarHover}
             alt={SITE.name}
             size="L"
             glow

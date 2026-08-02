@@ -19,6 +19,7 @@ export type UIAvatarFit = 'cover' | 'contain';
  * @interface IUIAvatarProps
  * @property {string} src - путь к изображению (светлая тема)
  * @property {string} [srcDark] - путь к изображению для тёмной темы
+ * @property {string} [hoverSrc] - альтернативное фото для crossfade при наведении
  * @property {string} alt - альт-текст
  * @property {UIAvatarSize} [size] - размер
  * @property {UIAvatarFit} [fit] - способ вписывания (cover / contain)
@@ -32,6 +33,7 @@ export type UIAvatarFit = 'cover' | 'contain';
 export interface IUIAvatarProps {
   readonly src: string;
   readonly srcDark?: string;
+  readonly hoverSrc?: string;
   readonly alt: string;
   readonly size?: UIAvatarSize;
   readonly fit?: UIAvatarFit;
@@ -73,6 +75,7 @@ export const UIAvatar: FC<IUIAvatarProps> = memo(
   ({
     src,
     srcDark,
+    hoverSrc,
     alt,
     size = 'M',
     fit = 'cover',
@@ -85,6 +88,7 @@ export const UIAvatar: FC<IUIAvatarProps> = memo(
   }) => {
     const classNames = useCn(
       'relative inline-block shrink-0 overflow-hidden rounded-full',
+      hoverSrc && 'group',
       SIZE_CLASS[size],
       ring && 'ring-2 ring-accent ring-offset-2 ring-offset-background',
       glow && 'shadow-[0_0_50px_-10px_var(--accent)]',
@@ -128,6 +132,21 @@ export const UIAvatar: FC<IUIAvatarProps> = memo(
             sizes={SIZE_PX[size]}
             priority={priority}
             className={cn(FIT_CLASS[fit], 'hidden dark:block')}
+          />
+        )}
+        {/* Crossfade на hover: плавное появление второго фото с задержкой
+            только на «вход» (delay берётся из целевого состояния → при уходе
+            мыши fade стартует сразу, без залипания). Декоративный дубль — alt пуст. */}
+        {hoverSrc && (
+          <Image
+            src={hoverSrc}
+            alt=""
+            fill
+            sizes={SIZE_PX[size]}
+            className={cn(
+              FIT_CLASS[fit],
+              'opacity-0 transition-opacity duration-500 ease-out-expo group-hover:opacity-100 group-hover:delay-150',
+            )}
           />
         )}
       </span>
