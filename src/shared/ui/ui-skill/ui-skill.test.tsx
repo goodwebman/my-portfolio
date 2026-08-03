@@ -60,6 +60,16 @@ describe('UISkill', () => {
     expect(getRoot(c2)).toHaveClass('h-10');
   });
 
+  it('без onClick — статичный span, с onClick — кнопка', () => {
+    const { container: c1 } = render(<UISkill name="React" />);
+    expect(getRoot(c1).tagName).toBe('SPAN');
+    expect(getRoot(c1)).not.toHaveClass('cursor-pointer');
+
+    const { container: c2 } = render(<UISkill name="React" onClick={() => undefined} />);
+    expect(getRoot(c2).tagName).toBe('BUTTON');
+    expect(getRoot(c2)).toHaveClass('cursor-pointer');
+  });
+
   it('brandColor задаёт цвет иконки', () => {
     const { container } = render(
       <UISkill name="React" icon={<svg data-testid="icon" />} brandColor="#61DAFB" />,

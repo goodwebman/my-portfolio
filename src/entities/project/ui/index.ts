@@ -1,2 +1,2 @@
 export { ProjectCard, type IProjectCardProps } from './project-card';
-export { getTechIcon } from './tech-icon';
+export { getTechIcon, getTechMeta } from './tech-icon';

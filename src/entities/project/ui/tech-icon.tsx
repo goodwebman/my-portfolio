@@ -67,10 +67,13 @@ const TECH_ICON: Record<string, { readonly icon: ReactNode; readonly color?: str
   IndexedDB: { icon: <LuDatabase /> },
 };
 
-/** Иконка тега стека; для брендов без готовой иконки — нейтральный фолбэк. */
-export const getTechIcon = (tag: string): ReactNode => {
-  const entry = TECH_ICON[tag];
-  if (!entry) return <LuBox />;
+/** Иконка + бренд-цвет тега стека; для брендов без иконки — нейтральный фолбэк. */
+export const getTechMeta = (tag: string): { readonly icon: ReactNode; readonly color?: string } =>
+  TECH_ICON[tag] ?? { icon: <LuBox /> };
 
-  return entry.color ? <span style={{ color: entry.color }}>{entry.icon}</span> : entry.icon;
+/** Иконка тега стека с уже применённым бренд-цветом (для слотов без `brandColor`). */
+export const getTechIcon = (tag: string): ReactNode => {
+  const { icon, color } = getTechMeta(tag);
+
+  return color ? <span style={{ color }}>{icon}</span> : icon;
 };

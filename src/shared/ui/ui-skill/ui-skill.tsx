@@ -38,18 +38,21 @@ export interface IUISkillProps {
 }
 
 /**
- * Кликабельная плашка технологии — кнопка-триггер (напр. открывает модалку с
- * описанием). Пружинистый hover/tap в стиле проекта. Иконка передаётся как
- * `ReactNode` — компонент не завязан на источник иконок.
+ * Плашка технологии. С `onClick` — кнопка-триггер (напр. открывает модалку с
+ * описанием) с пружинистым hover/tap; без него — статичный `span`, чтобы
+ * витрины стека (карточка проекта) не отдавали в a11y-дерево фейковые кнопки.
+ * Иконка передаётся как `ReactNode` — компонент не завязан на источник иконок.
  *
  * @component
  */
 export const UISkill: FC<IUISkillProps> = memo(
   ({ name, icon, brandColor, size = 'M', variant = 'solid', onClick, className, dataName }) => {
     const shouldReduce = useReducedMotion();
+    const interactive = onClick !== undefined;
 
     const classNames = useCn(
-      'inline-flex cursor-pointer select-none items-center gap-2 rounded-pill border font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring',
+      'inline-flex select-none items-center gap-2 rounded-pill border font-medium outline-none transition-colors',
+      interactive && 'cursor-pointer focus-visible:ring-2 focus-visible:ring-ring',
       size === 'M' ? 'h-10 px-4 text-small' : 'h-8 px-3 text-caption',
       variant === 'solid'
         ? 'border-border bg-card text-foreground shadow-sm hover:border-accent/50'
@@ -57,16 +60,8 @@ export const UISkill: FC<IUISkillProps> = memo(
       className,
     );
 
-    return (
-      <motion.button
-        type="button"
-        data-name={dataName ? `UISkill-${dataName}` : 'UISkill'}
-        className={classNames}
-        onClick={onClick}
-        whileHover={shouldReduce ? undefined : { scale: 1.05 }}
-        whileTap={shouldReduce ? undefined : { scale: 0.96 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-      >
+    const content = (
+      <>
         <Show when={Boolean(icon)}>
           <span
             className="inline-flex shrink-0 text-[1.15em]"
@@ -76,6 +71,30 @@ export const UISkill: FC<IUISkillProps> = memo(
           </span>
         </Show>
         {name}
+      </>
+    );
+
+    const dataNameAttr = dataName ? `UISkill-${dataName}` : 'UISkill';
+
+    if (!interactive) {
+      return (
+        <span data-name={dataNameAttr} className={classNames}>
+          {content}
+        </span>
+      );
+    }
+
+    return (
+      <motion.button
+        type="button"
+        data-name={dataNameAttr}
+        className={classNames}
+        onClick={onClick}
+        whileHover={shouldReduce ? undefined : { scale: 1.05 }}
+        whileTap={shouldReduce ? undefined : { scale: 0.96 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      >
+        {content}
       </motion.button>
     );
   },

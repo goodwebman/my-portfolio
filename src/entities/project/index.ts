@@ -5,4 +5,4 @@ export {
   type Project,
   type ProjectLinks,
 } from './model';
-export { ProjectCard, getTechIcon, type IProjectCardProps } from './ui';
+export { ProjectCard, getTechIcon, getTechMeta, type IProjectCardProps } from './ui';

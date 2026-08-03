@@ -2,14 +2,14 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
 import type { Project } from '@/entities/project';
-import { getTechIcon } from '@/entities/project';
+import { getTechMeta } from '@/entities/project';
 import {
   IconArrowLeft,
   IconExternal,
   Show,
   UILinkButton,
   UIReveal,
-  UITag,
+  UISkill,
   UITextLink,
 } from '@/shared/ui';
 
@@ -81,14 +81,16 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
           <h2 className="text-caption font-semibold uppercase tracking-wider text-muted-foreground">
             {t('stack')}
           </h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
-              <li key={tech}>
-                <UITag tone="outline" icon={getTechIcon(tech)}>
-                  {tech}
-                </UITag>
-              </li>
-            ))}
+          <ul className="mt-3 flex flex-wrap gap-2.5">
+            {project.stack.map((tech) => {
+              const { icon, color } = getTechMeta(tech);
+
+              return (
+                <li key={tech}>
+                  <UISkill name={tech} icon={icon} brandColor={color} dataName="stack" />
+                </li>
+              );
+            })}
           </ul>
         </div>
       </header>
