@@ -54,7 +54,10 @@ export const Hero: FC = () => {
   );
 
   return (
-    <section ref={rootRef} className="relative overflow-hidden">
+    // overflow-x-clip, а не overflow-hidden: свечение ниже уходит выше секции,
+    // под шапку, и не обрезается по её верхней границе — иначе на всю ширину
+    // появляется жёсткий стык «тёмный блок за шапкой / светлый низ».
+    <section ref={rootRef} className="relative overflow-x-clip">
       {/* декоративное свечение */}
       <div
         aria-hidden="true"

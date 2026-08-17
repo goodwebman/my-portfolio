@@ -3,7 +3,7 @@
  */
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 
 import { UIAvatar } from './ui-avatar';
 
@@ -48,5 +48,24 @@ describe('UIAvatar', () => {
     const { container } = render(<UIAvatar src="/me.jpg" alt="Я" ring />);
     expect(getRoot(container)).toHaveClass('ring-2');
     expect(getRoot(container)).toHaveClass('ring-accent');
+  });
+
+  it('hoverSrc: тап переключает второе фото, мышь — нет', () => {
+    const { container } = render(
+      <UIAvatar src="/me.jpg" alt="Я" hoverSrc="/me-blink.jpg" />,
+    );
+    const root = getRoot(container);
+    const hoverImg = screen.getByAltText('');
+
+    expect(hoverImg).toHaveClass('opacity-0');
+
+    fireEvent.pointerUp(root, { pointerType: 'mouse' });
+    expect(hoverImg).toHaveClass('opacity-0');
+
+    fireEvent.pointerUp(root, { pointerType: 'touch' });
+    expect(hoverImg).toHaveClass('opacity-100');
+
+    fireEvent.pointerUp(root, { pointerType: 'touch' });
+    expect(hoverImg).toHaveClass('opacity-0');
   });
 });

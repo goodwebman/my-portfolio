@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -86,6 +86,9 @@ export const UIAvatar: FC<IUIAvatarProps> = memo(
     className,
     dataName,
   }) => {
+    // Тач: hover-состояния нет, поэтому второе фото переключается тапом.
+    // Мышь отсекаем по pointerType — на десктопе всё остаётся на :hover.
+    const [tapped, setTapped] = useState(false);
     const classNames = useCn(
       'relative inline-block shrink-0 overflow-hidden rounded-full',
       hoverSrc && 'group',
@@ -99,6 +102,14 @@ export const UIAvatar: FC<IUIAvatarProps> = memo(
       <span
         data-name={dataName ? `UIAvatar-${dataName}` : 'UIAvatar'}
         className={classNames}
+        onPointerUp={
+          hoverSrc
+            ? (e) => {
+                if (e.pointerType === 'mouse') return;
+                setTapped((v) => !v);
+              }
+            : undefined
+        }
       >
         {/* Вращающееся градиентное кольцо-бордюр (центр вырезан маской,
             поэтому через прозрачные участки фото крутится только ободок) */}
@@ -146,6 +157,7 @@ export const UIAvatar: FC<IUIAvatarProps> = memo(
             className={cn(
               FIT_CLASS[fit],
               'opacity-0 transition-opacity duration-500 ease-out-expo group-hover:opacity-100 group-hover:delay-150',
+              tapped && 'opacity-100',
             )}
           />
         )}

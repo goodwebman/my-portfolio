@@ -40,8 +40,13 @@ export interface IUIModalProps {
   readonly dataName?: string;
 }
 
-/** Позиционирование боковых стрелок — оформление берётся из `UIIconButton`. */
-const ARROW_CLASS = 'absolute top-1/2 -translate-y-1/2';
+/**
+ * Позиционирование стрелок — оформление берётся из `UIIconButton`.
+ * До `sm` стрелки лежат в потоке под панелью (по бокам их некуда деть: панель
+ * занимает всю ширину вьюпорта и перекрывала бы их), с `sm` — абсолютом по краям
+ * оверлея поверх панели (`z-20` > `z-10` панели, иначе клик не доходит).
+ */
+const ARROW_CLASS = 'sm:absolute sm:top-1/2 sm:z-20 sm:-translate-y-1/2';
 
 /**
  * Модалка-лайтбокс: затемняющий оверлей с blur, центральная панель и опциональные
@@ -67,7 +72,7 @@ export const UIModal: FC<IUIModalProps> = ({
   const closeRef = useRef<HTMLButtonElement>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
   const panelClassNames = useCn(
-    'relative z-10 w-full max-w-lg rounded-card border border-border bg-card p-6 shadow-2xl ring-1 ring-inset ring-white/5 sm:p-8',
+    'relative z-10 w-full max-w-lg overflow-y-auto rounded-card border border-border bg-card p-6 shadow-2xl ring-1 ring-inset ring-white/5 sm:p-8',
     className,
   );
 
@@ -105,43 +110,13 @@ export const UIModal: FC<IUIModalProps> = ({
           role="dialog"
           aria-modal="true"
           aria-label={label}
-          className="fixed inset-0 z-100 flex items-center justify-center bg-background/80 p-4 backdrop-blur-md"
+          className="fixed inset-0 z-100 flex flex-col items-center justify-center gap-4 bg-background/80 p-4 backdrop-blur-md"
           initial={shouldReduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           onClick={onClose}
         >
-          <Show when={Boolean(onPrev)}>
-            <UIIconButton
-              label={prevLabel}
-              variant="glass"
-              size="L"
-              className={`${ARROW_CLASS} left-3 sm:left-6`}
-              onClick={(event) => {
-                event.stopPropagation();
-                onPrev?.();
-              }}
-            >
-              <LuChevronLeft className="size-5" />
-            </UIIconButton>
-          </Show>
-
-          <Show when={Boolean(onNext)}>
-            <UIIconButton
-              label={nextLabel}
-              variant="glass"
-              size="L"
-              className={`${ARROW_CLASS} right-3 sm:right-6`}
-              onClick={(event) => {
-                event.stopPropagation();
-                onNext?.();
-              }}
-            >
-              <LuChevronRight className="size-5" />
-            </UIIconButton>
-          </Show>
-
           <motion.div
             className={panelClassNames}
             initial={shouldReduce ? false : { opacity: 0, scale: 0.92, y: 14 }}
@@ -166,6 +141,42 @@ export const UIModal: FC<IUIModalProps> = ({
             </UIIconButton>
             {children}
           </motion.div>
+
+          {/* `sm:contents` убирает обёртку из раскладки — на десктопе стрелки
+              позиционируются абсолютом от оверлея, как раньше. */}
+          <Show when={Boolean(onPrev ?? onNext)}>
+            <div className="flex shrink-0 gap-3 sm:contents">
+              <Show when={Boolean(onPrev)}>
+                <UIIconButton
+                  label={prevLabel}
+                  variant="glass"
+                  size="L"
+                  className={`${ARROW_CLASS} sm:left-3 md:left-6`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onPrev?.();
+                  }}
+                >
+                  <LuChevronLeft className="size-5" />
+                </UIIconButton>
+              </Show>
+
+              <Show when={Boolean(onNext)}>
+                <UIIconButton
+                  label={nextLabel}
+                  variant="glass"
+                  size="L"
+                  className={`${ARROW_CLASS} sm:right-3 md:right-6`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onNext?.();
+                  }}
+                >
+                  <LuChevronRight className="size-5" />
+                </UIIconButton>
+              </Show>
+            </div>
+          </Show>
         </motion.div>
       ) : null}
     </AnimatePresence>
