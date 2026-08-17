@@ -1,11 +1,12 @@
 /**
- * Нелокализуемые данные сайта (идентификаторы, ссылки). Тексты (role, tagline,
- * bio, location) живут в messages/{locale}.json → namespace `Site`.
+ * Нелокализуемые данные сайта (идентификаторы, ссылки). Тексты (name, role,
+ * tagline, bio, location) живут в messages/{locale}.json → namespace `Site`.
  *
  * Базовый URL здесь не хранится: он зависит от окружения и живёт в
  * `@/shared/lib/seo` (`SITE_URL`), где читается из переменных окружения.
  */
 export const SITE = {
+  /** Каноничное имя для разметки Person. В UI имя берётся из `Site.name`. */
   name: 'Данил Шебалов',
   /** Латиницей — для OG-картинки и `alternateName` в разметке Person. */
   nameLatin: 'Danil Shebalov',

@@ -32,7 +32,7 @@ export async function AboutIntro() {
           <UIAvatar
             src={SITE.avatar}
             hoverSrc={SITE.avatarHover}
-            alt={SITE.name}
+            alt={tSite('name')}
             size="L"
             glow
             className="size-52"
@@ -40,7 +40,7 @@ export async function AboutIntro() {
           <div>
             <UIWordReveal
               as="h1"
-              text={SITE.name}
+              text={tSite('name')}
               className="text-h1 font-extrabold tracking-tight text-foreground"
             />
             <UIBadge className="mt-3">{tSite('role')}</UIBadge>

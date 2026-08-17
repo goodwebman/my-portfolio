@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { LuMenu, LuX } from 'react-icons/lu';
 
-import { NAV, SITE } from '@/shared/config';
+import { NAV } from '@/shared/config';
 import { usePathname } from '@/shared/i18n';
 import { cn } from '@/shared/lib/cn';
 import { useMediaQuery, useScrolledPast } from '@/shared/lib/hooks';
@@ -32,6 +32,7 @@ const SCROLL_OFFSET = 8;
 export const SiteHeader: FC = () => {
   const t = useTranslations('Header');
   const tNav = useTranslations('Nav');
+  const tSite = useTranslations('Site');
   const pathname = usePathname();
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const shouldReduce = useReducedMotion();
@@ -59,7 +60,7 @@ export const SiteHeader: FC = () => {
           )}
         >
           <UILogo
-            name={SITE.name}
+            name={tSite('name')}
             variant="header"
             onClick={closeMenu}
             dataName="header"

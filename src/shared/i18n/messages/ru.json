@@ -14,6 +14,7 @@
     "projectNotFound": "Проект не найден"
   },
   "Site": {
+    "name": "Данил Шебалов",
     "role": "Frontend Developer",
     "tagline": "Строю быстрые продукты на React, Next.js и TypeScript",
     "shortBio": "Фронтенд-разработчик с 3+ летним опытом: от дизайн-систем до сложных SPA.",

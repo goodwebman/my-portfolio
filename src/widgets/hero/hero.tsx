@@ -106,7 +106,7 @@ export const Hero: FC = () => {
               <UIAvatar
                 src={SITE.avatar}
                 hoverSrc={SITE.avatarHover}
-                alt={SITE.name}
+                alt={tSite('name')}
                 size="L"
                 halo
                 glow

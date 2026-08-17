@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server';
 
-import { SITE } from '@/shared/config';
 import { UIContainer, UILogo } from '@/shared/ui';
 
 import { FooterNav } from './footer-nav';
@@ -17,7 +16,7 @@ export async function SiteFooter() {
       <UIContainer>
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <UILogo name={SITE.name} variant="footer" dataName="footer" />
+            <UILogo name={tSite('name')} variant="footer" dataName="footer" />
             <p className="mt-4 max-w-sm text-small text-muted-foreground">
               {tSite('shortBio')}
             </p>
@@ -39,7 +38,7 @@ export async function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-border py-6 text-caption text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>{t('copyright', { year, name: SITE.name })}</p>
+          <p>{t('copyright', { year, name: tSite('name') })}</p>
           <p>{t('builtWith')}</p>
         </div>
       </UIContainer>

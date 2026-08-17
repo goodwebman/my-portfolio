@@ -63,7 +63,9 @@ export async function generateMetadata({
   const { locale } = await params;
   const typedLocale = locale as Locale;
   const t = await getTranslations({ locale: typedLocale, namespace: 'Meta' });
-  const title = `${SITE.name} — ${t('role')}`;
+  const tSite = await getTranslations({ locale: typedLocale, namespace: 'Site' });
+  const name = tSite('name');
+  const title = `${name} — ${t('role')}`;
   const description = t('description');
   const alternates = buildAlternates(typedLocale, '/');
 
@@ -71,16 +73,16 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: {
       default: title,
-      template: `%s — ${SITE.name}`,
+      template: `%s — ${name}`,
     },
     description,
     keywords: t('keywords')
       .split(',')
       .map((keyword) => keyword.trim()),
-    authors: [{ name: SITE.name, url: SITE.github }],
-    creator: SITE.name,
-    publisher: SITE.name,
-    applicationName: SITE.name,
+    authors: [{ name, url: SITE.github }],
+    creator: name,
+    publisher: name,
+    applicationName: name,
     alternates,
     robots: {
       index: true,
@@ -98,7 +100,7 @@ export async function generateMetadata({
       locale: typedLocale === 'ru' ? 'ru_RU' : 'en_US',
       alternateLocale: typedLocale === 'ru' ? ['en_US'] : ['ru_RU'],
       url: alternates.canonical,
-      siteName: SITE.name,
+      siteName: name,
       title,
       description,
     },
