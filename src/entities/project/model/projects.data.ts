@@ -3,6 +3,42 @@ import type { Project } from './types';
 /** Кейсы портфолио — структурные данные. Тексты — в messages `Projects.<slug>`. */
 export const PROJECTS: readonly Project[] = [
   {
+    slug: 'mini-jira',
+    title: 'Mini Jira',
+    cover: '/projects/mini-jira/02-kanban.png',
+    gallery: [
+      '/projects/mini-jira/01-boards.png',
+      '/projects/mini-jira/02-kanban.png',
+      '/projects/mini-jira/03-task-detail.png',
+      '/projects/mini-jira/04-my-tasks.png',
+      '/projects/mini-jira/05-sprint-kpi.png',
+    ],
+    stack: ['React', 'TypeScript', 'Vite', 'TanStack Query', 'Hono', 'Drizzle ORM', 'Neon', 'SSE'],
+    links: {
+      live: 'https://mini-jira-phi.vercel.app',
+      repo: 'https://github.com/goodwebman/mini-jira',
+    },
+    year: 2026,
+  },
+  {
+    slug: 'apollinaria',
+    title: 'Apollinaria',
+    cover: '/projects/apollinaria/01-hero.jpg',
+    gallery: [
+      '/projects/apollinaria/01-hero.jpg',
+      '/projects/apollinaria/02-about.jpg',
+      '/projects/apollinaria/03-portfolio.jpg',
+      '/projects/apollinaria/04-services.jpg',
+      '/projects/apollinaria/05-contact.jpg',
+    ],
+    stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Storybook'],
+    links: {
+      live: 'https://photographer-s-portfolio-tau.vercel.app',
+      repo: 'https://github.com/goodwebman/photographer-s-portfolio',
+    },
+    year: 2026,
+  },
+  {
     slug: 'zuko-messenger',
     title: 'Zuko',
     cover: '/projects/zuko-messenger/cover.jpg',

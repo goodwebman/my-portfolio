@@ -138,6 +138,7 @@
     "openProject": "Open project",
     "sourceCode": "Source code",
     "stack": "Stack",
+    "description": "About the project",
     "gallery": "Gallery"
   },
   "ProjectGallery": {
@@ -165,6 +166,30 @@
     "home": "Back home"
   },
   "Projects": {
+    "mini-jira": {
+      "role": "Fullstack",
+      "summary": "A team task tracker with Kanban boards, sprints, and metrics. The React frontend uses Feature-Sliced Design and DI.",
+      "description": [
+        "Mini Jira brings together Kanban boards, task details, personal assignments, and sprint analytics. Team members can check their assignments, move tasks between statuses, and discuss work in comments. A dashboard shows the team how the sprint is progressing.",
+        "The frontend follows Feature-Sliced Design. The router defines access boundaries and dependency lifetimes. Pages handle route parameters, loading, and errors, then compose the screen from widgets. Features own user actions, while entities hold domain logic and define queries. ESLint enforces the import rules between layers.",
+        "Adding a comment shows how those boundaries work in practice. The feature calls the comment entity's API and writes the returned comment into the task cache through the task entity's public interface. The two entities stay independent, and the workflow lives in one feature.",
+        "I chose to skip Redux, MobX, and Zustand because each kind of state already has a clear owner. TanStack Query manages the API cache, React holds form drafts and dialog state, and URL parameters restore My Tasks filters and the selected sprint on the metrics page. An app-wide store would add synchronization across those sources. Small external stores subscribed to through useSyncExternalStore are reserved for state that several screens actually share.",
+        "Dependency injection (DI) ties the board workspace to its route branch. The route passes a store factory to the provider, and components receive the instance through a typed context. The Kanban board, member list, and task detail share one instance. It tracks the selected mobile column, the last opened task for highlighting, and board filters. A new board or user gets a fresh store, with saved filters restored from localStorage using a key scoped to that user and board.",
+        "The React client and Hono API share Zod schemas and permission rules. Moving a card updates the UI immediately, with a cache rollback if the request fails. Changes from other team members arrive over SSE, and Neon PostgreSQL stores the data.",
+        "DI makes the behavior easier to test. UI tests can pass a store instance through the same provider used in the app. Integration tests run the real route tree in memory and cover page access, navigation within a board, and state isolation when switching boards."
+      ]
+    },
+    "apollinaria": {
+      "role": "Frontend",
+      "summary": "A portfolio for an Omsk photographer with a filterable gallery, pricing, and session booking through Telegram.",
+      "description": [
+        "A one-page portfolio for Apollinaria, a photographer based in Omsk. The homepage introduces her work, the gallery showcases several genres, and the services section lays out options for solo, couples, and group shoots. Visitors can start a booking conversation on Telegram from the hero or the contact section.",
+        "Polina's night photography shaped the design. The oversized title overlaps the photograph, and the palette pairs warm charcoal with terracotta accents. The light Day theme uses paper and ink tones. On phones, the title and photo stack vertically and the navigation collapses into a menu.",
+        "Visitors can filter the gallery by genre and open a photo full screen. The viewer moves through the selected genre and supports arrow keys and swipe gestures. Closing it returns focus to the thumbnail. Animations respect the visitor's reduced-motion preference.",
+        "The site uses the Next.js App Router. Server Components render the main content, while client components handle interactions such as the menu, filters, and photo viewer. The lightbox code lives in a separate chunk. The hero image loads with high priority, and next/image serves appropriately sized images in AVIF or WebP.",
+        "Photos, genres, and pricing are modeled separately. New genres appear in the gallery filter automatically, and one pricing list feeds both the page and the structured service data. Components and both themes can be previewed in Storybook."
+      ]
+    },
     "zuko-messenger": {
       "role": "Fullstack",
       "summary": "A realtime social network and messenger: feed, direct messages, presence, typing indicators and read receipts.",

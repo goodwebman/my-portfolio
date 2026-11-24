@@ -108,13 +108,21 @@ export async function ProjectDetail({ project }: IProjectDetailProps) {
         </div>
       </UIReveal>
 
-      <div className="mt-12 max-w-2xl space-y-5 text-body leading-relaxed text-muted-foreground">
-        {description.map((paragraph, index) => (
-          <UIReveal key={paragraph} delay={index * 0.05}>
-            <p>{paragraph}</p>
-          </UIReveal>
-        ))}
-      </div>
+      <section
+        aria-labelledby="project-description"
+        className="mt-8 rounded-card border border-border bg-card p-5 text-card-foreground sm:mt-10 sm:p-8"
+      >
+        <h2 id="project-description" className="text-h3 font-semibold">
+          {t('description')}
+        </h2>
+        <div className="mt-4 text-body leading-relaxed sm:text-[1.0625rem] lg:columns-2 lg:gap-10">
+          {description.map((paragraph) => (
+            <p key={paragraph} className="mb-4 break-inside-avoid wrap-break-word last:mb-0">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </section>
 
       <Show when={project.gallery.length > 0}>
         <section className="mt-16">
